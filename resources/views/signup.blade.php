@@ -51,7 +51,7 @@
                         <div class="text-center">
                             <img src="{{ asset('images/logo-dark.svg') }}" alt="images" class="img-fluid mb-4" />
                             <h4 class="f-w-500 mb-1">Register with your email</h4>
-                            <p class="mb-4">Already have an Account? <a href="{{ route('user.login.form') }}"
+                            <p class="mb-4">Already have an Account? <a href="{{ route('user.login') }}"
                                     class="link-primary">Log in</a></p>
                         </div>
                         <form action="{{ route('signup') }}" method="POST">

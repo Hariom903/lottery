@@ -86,7 +86,7 @@
                                                     <span>Add account</span>
                                                 </span>
                                             </a>
-                                            <form action="{{ route('logout') }}" method="post">
+                                            <form action="{{ route('admin.logout') }}" method="post">
                                                 @csrf
                                             <button type="submit" class="dropdown-item">
                                                 <span class="d-flex align-items-center">
