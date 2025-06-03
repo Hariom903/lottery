@@ -49,54 +49,49 @@
 
     <!-- [Pre-loader ] end -->
     @include('header')
-    <br/>
-    <br/>
-    <br/>
- <div class="pc-content mt-5  ">
-   <div class="container mt-5">
-    <div class="card">
-        <div class="card-header bg-primary text-white">
-            <h4>{{$ticket->title}}</h4>
-        </div>
-        <div class="card-body">
-            <p><strong>Description:</strong> {{$ticket->description }}</p>
-            <p><strong>Ticket Price:</strong> {{ $ticket->ticket_price}}</p>
-            <p><strong>Total Tickets:</strong>  {{ $ticket->total_tickets }}</p>
-            <p><strong>Sold Tickets:</strong>  {{ $ticket->sold_tickets }}</p>
-
-            <form action="{{ route('cards.store') }}" method="POST">
-                @csrf
-
-               <input type="hidden" name="lottery_id" value="{{$ticket->id}}">
-               <input type="hidden" name="user_id" value="{{Auth::id()  }}">
-
-                <div class="form-group">
-                    <label for="quantity">Number of Tickets to Buy:</label>
-                    <input type="number" name="quantity" min="1" max="{{$ticket->total_tickets - $ticket->sold_tickets }}"  class="form-control" required>
+    <br />
+    <br />
+    <br />
+    <div class="pc-content mt-5  ">
+        <div class="container mt-5">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h4>{{ $ticket->title }}</h4>
                 </div>
-                <button type="submit" class="btn btn-success mt-3">Purchase</button>
-            </form>
+                <div class="card-body">
+                    <p><strong>Description:</strong> {{ $ticket->description }}</p>
+                    <p><strong>Ticket Price:</strong> {{ $ticket->ticket_price }}</p>
+                    <p><strong>Total Tickets:</strong> {{ $ticket->total_tickets }}</p>
+                    <p><strong>Sold Tickets:</strong> {{ $ticket->sold_tickets }}</p>
+
+                    <form action="{{ route('cards.store') }}" method="POST">
+                        @csrf
+
+                        <input type="hidden" name="lottery_id" value="{{ $ticket->id }}">
+                        <input type="hidden" name="user_id" value="{{ Auth::id() }}">
+
+                        <div class="form-group">
+                            <label for="quantity">Number of Tickets to Buy:</label>
+                            <input type="number" name="quantity" min="1"
+                                max="{{ $ticket->total_tickets - $ticket->sold_tickets }}" class="form-control"
+                                required>
+                        </div>
+                        <button type="submit" class="btn btn-success mt-3">Purchase</button>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
-</div>
-
-
-
- </div>
-
-
-
-
-   <footer class="pc-footer">
+    <footer class="pc-footer">
         <div class="footer-wrapper container-fluid">
             <div class="row">
                 <div class="col-sm-6 my-1">
-                    <p class="m-0">Gradient Able &#9829; crafted by Team <a href="#"
-                            target="_blank">Hariom dangi </a></p>
+                    <p class="m-0">Gradient Able &#9829; crafted by Team <a href="#" target="_blank">Hariom
+                            dangi </a></p>
                 </div>
                 <div class="col-sm-6 ms-auto my-1">
                     <ul class="list-inline footer-link mb-0 justify-content-sm-end d-flex">
-                        <li class="list-inline-item"><a href="{{ route("home") }}">Home</a></li>
+                        <li class="list-inline-item"><a href="{{ route('home') }}">Home</a></li>
                     </ul>
                 </div>
             </div>
@@ -105,12 +100,12 @@
 </body>
 <!-- Bootstrap Bundle with Popper -->
 
-    <script src="{{ asset('js/plugins/popper.min.js') }}"></script>
-    <script src="{{ asset('js/plugins/simplebar.min.js') }}"></script>
-    <script src="{{ asset('js/plugins/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('js/fonts/custom-font.js') }}"></script>
-    <script src="{{ asset('js/script.js') }}"></script>
-    <script src="{{ asset('js/theme.js') }}"></script>
-    <script src="{{ asset('js/plugins/feather.min.js') }}"></script>
+<script src="{{ asset('js/plugins/popper.min.js') }}"></script>
+<script src="{{ asset('js/plugins/simplebar.min.js') }}"></script>
+<script src="{{ asset('js/plugins/bootstrap.min.js') }}"></script>
+<script src="{{ asset('js/fonts/custom-font.js') }}"></script>
+<script src="{{ asset('js/script.js') }}"></script>
+<script src="{{ asset('js/theme.js') }}"></script>
+<script src="{{ asset('js/plugins/feather.min.js') }}"></script>
 
 </html>
