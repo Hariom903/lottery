@@ -47,14 +47,14 @@
     </div>
     @include('header')
     <div class="mt-4 ">
-    @include('ticket')
+        @include('ticket')
     </div>
-     <footer class="pc-footer">
+    <footer class="pc-footer">
         <div class="footer-wrapper container-fluid">
             <div class="row">
                 <div class="col-sm-6 my-1">
-                    <p class="m-0">Gradient Able &#9829; crafted by Team <a href="#"
-                            target="_blank">Hariom dangi </a></p>
+                    <p class="m-0">Gradient Able &#9829; crafted by Team <a href="#" target="_blank">Hariom
+                            dangi </a></p>
                 </div>
                 <div class="col-sm-6 ms-auto my-1">
                     <ul class="list-inline footer-link mb-0 justify-content-sm-end d-flex">
@@ -67,12 +67,12 @@
 </body>
 <!-- Bootstrap Bundle with Popper -->
 
-    <script src="{{ asset('js/plugins/popper.min.js') }}"></script>
-    <script src="{{ asset('js/plugins/simplebar.min.js') }}"></script>
-    <script src="{{ asset('js/plugins/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('js/fonts/custom-font.js') }}"></script>
-    <script src="{{ asset('js/script.js') }}"></script>
-    <script src="{{ asset('js/theme.js') }}"></script>
-    <script src="{{ asset('js/plugins/feather.min.js') }}"></script>
+<script src="{{ asset('js/plugins/popper.min.js') }}"></script>
+<script src="{{ asset('js/plugins/simplebar.min.js') }}"></script>
+<script src="{{ asset('js/plugins/bootstrap.min.js') }}"></script>
+<script src="{{ asset('js/fonts/custom-font.js') }}"></script>
+<script src="{{ asset('js/script.js') }}"></script>
+<script src="{{ asset('js/theme.js') }}"></script>
+<script src="{{ asset('js/plugins/feather.min.js') }}"></script>
 
 </html>

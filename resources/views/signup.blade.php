@@ -72,7 +72,7 @@
                                         <input type="text" class="form-control" name="Last_name"
                                             placeholder="Last Name" />
                                     </div>
-                                     @error('Last_name')
+                                    @error('Last_name')
                                         <div class="alert alert-danger">{{ $message }}</div>
                                     @enderror
                                 </div>

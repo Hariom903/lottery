@@ -60,19 +60,19 @@
 
 
                             <div class="form-group mb-3">
-                                <input type="email" class="form-control" name='email' value="{{ old('email') }}" id="floatingInput"
-                                    placeholder="Email Address" />
+                                <input type="email" class="form-control" name='email' value="{{ old('email') }}"
+                                    id="floatingInput" placeholder="Email Address" />
                             </div>
-                             @error('email')
-                              <div class="alert alert-danger">{{ $message }}</div>
-                               @enderror
+                            @error('email')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
                             <div class="form-group mb-3">
                                 <input type="password" class="form-control" name='password' id="floatingInput1"
                                     placeholder="Password" />
                             </div>
-                             @error('password')
-                              <div class="alert alert-danger">{{ $message }}</div>
-                               @enderror
+                            @error('password')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
                             <div class="d-flex mt-1 justify-content-between align-items-center">
 
                                 <a href="#">
