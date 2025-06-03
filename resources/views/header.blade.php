@@ -1,0 +1,58 @@
+  <header class="pc-header  mb-4 ">
+      <div class="m-header">
+          <a href="{{ route('home') }}" class="b-brand text-primary">
+              <!-- ========   Change your logo from here   ============ -->
+              <img src="{{ asset('images/logo-white.svg') }}" alt="logo image" class="logo-lg" />
+          </a>
+      </div>
+
+
+      <div class="header-wrapper"> <!-- [Mobile Media Block] start -->
+          <div class="me-auto pc-mob-drp">
+              <ul class="list-unstyled">
+                  <!-- ======= Menu collapse Icon ===== -->
+                  {{-- <li class="pc-h-item pc-sidebar-collapse">
+                        <a href="#" class="pc-head-link ms-0" id="sidebar-hide">
+                            <i class="ph ph-list"></i>
+                        </a>
+                    </li> --}}
+                  <li class="pc-h-item pc-sidebar-popup">
+                      <a href="#" class="pc-head-link ms-0" id="mobile-collapse">
+                          <i class="ph ph-list"></i>
+                      </a>
+                  </li>
+              </ul>
+          </div>
+          {{-- home about login sinup  --}}
+
+          <div class="ms-auto mx-3 pc-mob-drp d-flex align-items-center gap-3">
+              <ul class="list-unstyled d-flex align-items-center mb-0 gap-3 mx-0">
+                  <li class="pc-h-item">
+                      <a href="{{ route('home') }}" class="pc-head-link">Home</a>
+                  </li>
+                  <li class="pc-h-item">
+                      <a href="#" class="pc-head-link">About</a>
+                  </li>
+                  @if (!Auth::check())
+                      <li class="pc-h-item">
+                          <i class="ph ph-star me-1"> </i>
+                          <a href="{{ route('signup.form') }}" class="pc-head-link"> Become a Member </a>
+                      </li>
+                  @else
+                      <li class="pc-h-item">
+                          <i class="ph ph-user me-1"></i>
+                          <span class="me-1">{{ Auth::user()->name }}</span>
+                      </li>
+                      <li><a class="dropdown-item" href="{{ route('logout') }}">Logout</a></li>
+                  @endif
+              </ul>
+          </div>
+
+      </div>
+
+      </ul>
+
+      <!-- [Mobile Media Block end] -->
+
+      </div>
+  </header>
