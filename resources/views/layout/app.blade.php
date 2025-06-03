@@ -32,6 +32,8 @@
     <!-- [Template CSS Files] -->
     <link rel="stylesheet" href="{{ asset('css/style.css') }}" id="main-style-link" />
     <link rel="stylesheet" href="{{ asset('css/style-preset.css') }}" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+
 
 </head>
 <!-- [Head] end -->
@@ -93,7 +95,10 @@
     <script src="{{ asset('js/script.js') }}"></script>
     <script src="{{ asset('js/theme.js') }}"></script>
     <script src="{{ asset('js/plugins/feather.min.js') }}"></script>
-
+     <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+ <script>
+                                        var simplemde = new SimpleMDE({ element: document.getElementById("markdown-editor") });
+                                      </script>
 
     {{-- <script>
       layout_change('light');

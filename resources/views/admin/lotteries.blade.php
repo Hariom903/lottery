@@ -32,8 +32,10 @@
                                 @enderror
                                 <div class="mb-3">
                                     <label for="winning_number" class="form-label">description</label>
-                                    <input type="text" value="{{ old('description') }}" class="form-control"
-                                        id="description" name="description">
+                                   
+                                        <textarea id="markdown-editor" value="{{ old('description') }}"  name="description"></textarea>
+
+
                                 </div>
                                 @error('description')
                                     <div class="alert alert-danger">{{ $message }}</div>
