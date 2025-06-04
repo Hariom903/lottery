@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SingupController;
+use App\Http\Controllers\StripePaymentController;
 use App\Http\Controllers\TicketConttroler;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -36,4 +37,10 @@ Route::middleware(['Authuser'])->group(function () {
     Route::get('/logout', [SingupController::class, 'logout'])->name('logout');
     Route::get('/cards/{tid}',[TicketConttroler::class,'index']);
     Route::post('/cards',[TicketConttroler::class,'store'])->name('cards.store');
+
+
+   Route::controller(StripePaymentController::class)->group(function(){
+   
+    Route::post('stripe', 'stripePost')->name('stripe.post');
+});
 });

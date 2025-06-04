@@ -73,7 +73,7 @@
                 </div>
                 <div class="col-sm-6 ms-auto my-1">
                     <ul class="list-inline footer-link mb-0 justify-content-sm-end d-flex">
-                        <li class="list-inline-item"><a href="../index.html">Home</a></li>
+                        <li class="list-inline-item"><a href="/dashbroad">Home</a></li>
                     </ul>
                 </div>
             </div>
@@ -99,8 +99,7 @@
  <script>
                                         var simplemde = new SimpleMDE({ element: document.getElementById("markdown-editor") });
                                       </script>
-
-    {{-- <script>
+<script>
       layout_change('light');
     </script>
 
@@ -126,7 +125,7 @@
 
     <script>
       header_change('header-1');
-    </script> --}}
+    </script>
 
 
 </body>

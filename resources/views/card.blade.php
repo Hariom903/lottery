@@ -54,21 +54,28 @@
     <br />
     <div class="pc-content mt-5  ">
         <div class="container mt-5">
+              @session('success')
+                        <div class="alert alert-success" role="alert">
+                            {{ $value }}
+                        </div>
+                    @endsession
             <div class="card">
                 <div class="card-header bg-primary text-white">
                     <h4>{{ $ticket->title }}</h4>
                 </div>
+
                 <div class="card-body">
                     <p><strong>Description:</strong> {{ $ticket->description }}</p>
                     <p><strong>Ticket Price:</strong> {{ $ticket->ticket_price }}</p>
                     <p><strong>Total Tickets:</strong> {{ $ticket->total_tickets }}</p>
                     <p><strong>Sold Tickets:</strong> {{ $ticket->sold_tickets }}</p>
 
-                    <form action="{{ route('cards.store') }}" method="POST">
+                    <form action="{{ route('stripe.post') }}" method="POST">
                         @csrf
 
                         <input type="hidden" name="lottery_id" value="{{ $ticket->id }}">
                         <input type="hidden" name="user_id" value="{{ Auth::id() }}">
+                        <input type="hidden" name="price" value="{{ $ticket->ticket_price }}">
 
                         <div class="form-group">
                             <label for="quantity">Number of Tickets to Buy:</label>
@@ -76,6 +83,18 @@
                                 max="{{ $ticket->total_tickets - $ticket->sold_tickets }}" class="form-control"
                                 required>
                         </div>
+                          <input type="input" class="form-control" name="name" placeholder="Enter Name">
+
+                         <input type='hidden' name='stripeToken' id='stripe-token-id'>
+                        <br>
+                        <div id="card-element" class="form-control" ></div>
+                        <button
+                            id='pay-btn'
+                            class="btn btn-success mt-3"
+                            type="button"
+                            style="margin-top: 20px; width: 100%;padding: 7px;"
+                            onclick="createToken()">Pay now ${{ $ticket->ticket_price }}
+                        </button>
                         <button type="submit" class="btn btn-success mt-3">Purchase</button>
                     </form>
                 </div>
@@ -109,3 +128,34 @@
 <script src="{{ asset('js/plugins/feather.min.js') }}"></script>
 
 </html>
+
+<script src="https://js.stripe.com/v3/"></script>
+<script type="text/javascript">
+
+    var stripe = Stripe('{{ env('STRIPE_KEY') }}')
+    var elements = stripe.elements();
+    var cardElement = elements.create('card');
+    cardElement.mount('#card-element');
+
+    /*------------------------------------------
+    --------------------------------------------
+    Create Token Code
+    --------------------------------------------
+    --------------------------------------------*/
+    function createToken() {
+        document.getElementById("pay-btn").disabled = true;
+        stripe.createToken(cardElement).then(function(result) {
+
+            if(typeof result.error != 'undefined') {
+                document.getElementById("pay-btn").disabled = false;
+                alert(result.error.message);
+            }
+
+            /* creating token success */
+            if(typeof result.token != 'undefined') {
+                document.getElementById("stripe-token-id").value = result.token.id;
+                document.getElementById('checkout-form').submit();
+            }
+        });
+    }
+</script>
