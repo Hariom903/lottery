@@ -54,11 +54,11 @@
     <br />
     <div class="pc-content mt-5  ">
         <div class="container mt-5">
-              @session('success')
-                        <div class="alert alert-success" role="alert">
-                            {{ $value }}
-                        </div>
-                    @endsession
+            @session('success')
+                <div class="alert alert-success" role="alert">
+                    {{ $value }}
+                </div>
+            @endsession
             <div class="card">
                 <div class="card-header bg-primary text-white">
                     <h4>{{ $ticket->title }}</h4>
@@ -70,7 +70,7 @@
                     <p><strong>Total Tickets:</strong> {{ $ticket->total_tickets }}</p>
                     <p><strong>Sold Tickets:</strong> {{ $ticket->sold_tickets }}</p>
 
-                    <form action="{{ route('stripe.post') }}" method="POST">
+                    <form action="{{ route('stripe.post') }}" method="POST" id="checkout-form">
                         @csrf
 
                         <input type="hidden" name="lottery_id" value="{{ $ticket->id }}">
@@ -83,19 +83,16 @@
                                 max="{{ $ticket->total_tickets - $ticket->sold_tickets }}" class="form-control"
                                 required>
                         </div>
-                          <input type="input" class="form-control" name="name" placeholder="Enter Name">
 
-                         <input type='hidden' name='stripeToken' id='stripe-token-id'>
-                        <br>
-                        <div id="card-element" class="form-control" ></div>
-                        <button
-                            id='pay-btn'
-                            class="btn btn-success mt-3"
-                            type="button"
-                            style="margin-top: 20px; width: 100%;padding: 7px;"
-                            onclick="createToken()">Pay now ${{ $ticket->ticket_price }}
+                        <label>Name on Card</label>
+                        <input type="text" name="name" class="form-control" placeholder="Cardholder Name">
+
+                        <div id="card-element" class="form-control my-3"></div>
+                        <input type="hidden" name="payment_method" id="payment-method">
+
+                        <button id="pay-btn" type="button" class="btn btn-primary w-100 mt-3">
+                            Pay ${{ $ticket->ticket_price }}
                         </button>
-                        <button type="submit" class="btn btn-success mt-3">Purchase</button>
                     </form>
                 </div>
             </div>
@@ -130,32 +127,31 @@
 </html>
 
 <script src="https://js.stripe.com/v3/"></script>
-<script type="text/javascript">
-
-    var stripe = Stripe('{{ env('STRIPE_KEY') }}')
-    var elements = stripe.elements();
-    var cardElement = elements.create('card');
+<script>
+    const stripe = Stripe('{{ env('STRIPE_KEY') }}');
+    const elements = stripe.elements();
+    const cardElement = elements.create('card');
     cardElement.mount('#card-element');
 
-    /*------------------------------------------
-    --------------------------------------------
-    Create Token Code
-    --------------------------------------------
-    --------------------------------------------*/
-    function createToken() {
-        document.getElementById("pay-btn").disabled = true;
-        stripe.createToken(cardElement).then(function(result) {
+    const payBtn = document.getElementById('pay-btn');
 
-            if(typeof result.error != 'undefined') {
-                document.getElementById("pay-btn").disabled = false;
+    payBtn.addEventListener('click', function() {
+        payBtn.disabled = true;
+
+        stripe.createPaymentMethod({
+            type: 'card',
+            card: cardElement,
+            billing_details: {
+                name: document.querySelector('input[name="name"]').value,
+            },
+        }).then(function(result) {
+            if (result.error) {
                 alert(result.error.message);
-            }
-
-            /* creating token success */
-            if(typeof result.token != 'undefined') {
-                document.getElementById("stripe-token-id").value = result.token.id;
+                payBtn.disabled = false;
+            } else {
+                document.getElementById('payment-method').value = result.paymentMethod.id;
                 document.getElementById('checkout-form').submit();
             }
         });
-    }
+    });
 </script>
