@@ -44,7 +44,7 @@ class StripePaymentController extends Controller
 
 
 
-        return back()
+        return redirect()->route('mytickets')
                 ->with('success', 'Payment successful!');
     }
 

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\admin\Lottery;
 use Illuminate\Database\Eloquent\Model;
 
 class Ticket extends Model
@@ -16,4 +17,8 @@ class Ticket extends Model
     {
         return $this->belongsTo(User::class);
     }
+    public function lottery()
+{
+    return $this->belongsTo(Lottery::class);
+}
 }

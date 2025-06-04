@@ -2,6 +2,7 @@
 
 namespace App\Models\admin;
 
+use App\Models\Ticket;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str; // ✅ Add this import
 
@@ -26,5 +27,9 @@ class Lottery extends Model
                 $lottery->tid = (string) Str::uuid(); // Auto-generate unique TID
             }
         });
+    }
+     public function tickets()
+    {
+        return $this->hasMany(Ticket::class);
     }
 }

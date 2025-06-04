@@ -43,7 +43,13 @@
                           <i class="ph ph-user me-1"></i>
                           <span class="me-1">{{ Auth::user()->name }}</span>
                       </li>
-                      <li><a class="dropdown-item" href="{{ route('logout') }}">Logout</a></li>
+                      <li class='pc-h-item'>
+                          <a href="{{ route('mytickets') }}" class="pc-head-link">mytickets</a>
+                      </li>
+                      <li class='pc-h-item'>
+                          <a href="{{ route('logout') }}" class="pc-head-link">Logout</a>
+                      </li>
+
                   @endif
               </ul>
           </div>
