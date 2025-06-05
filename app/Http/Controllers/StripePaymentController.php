@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\admin\Lottery;
 use App\Models\Ticket;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -41,6 +42,11 @@ class StripePaymentController extends Controller
               'allow_redirects' => 'never', // prevents redirect-based methods
     ],
         ]);
+
+        $lottery = Lottery::find($request->lottery_id);
+        $lottery->sold_tickets += $quantity;
+        $lottery->save();
+
 
 
         // Save ticket(s)

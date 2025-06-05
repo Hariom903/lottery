@@ -3,11 +3,12 @@
 namespace App\Http\Middleware;
 
 use Closure;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class AuthUser
+class AdminAuth
 {
     /**
      * Handle an incoming request.
@@ -16,9 +17,9 @@ class AuthUser
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!Auth::check() || Auth::user()->role !== 'user'  ) {
-            return redirect()->route('user.login');
-        }
+          if(!Auth::check() || Auth::user()->role != 'admin'){
+            return redirect()->route('login');
+          }
 
         return $next($request);
     }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\AdminAuth;
 use App\Http\Middleware\AuthUser;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -17,6 +18,9 @@ return Application::configure(basePath: dirname(__DIR__))
 
          $middleware->alias([
         'Authuser' => AuthUser::class,
+        'admin'=>  AdminAuth::class,
+
+        // Add your middleware aliases here...
     ]);
 
 

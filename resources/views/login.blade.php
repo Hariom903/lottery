@@ -88,7 +88,7 @@
                             <div class="text-center">
                                 <ul class="list-inline mx-auto mt-3 mb-0">
                                     <li class="list-inline-item">
-                                        <a href="#" class="avtar avtar-s rounded-circle bg-googleplus"
+                                        <a href="{{ route('google') }}" class="avtar avtar-s rounded-circle bg-googleplus"
                                             target="_blank">
                                             <i class="fab fa-google text-white"></i>
                                         </a>

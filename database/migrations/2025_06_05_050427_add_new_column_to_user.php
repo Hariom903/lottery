@@ -11,14 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('lotteries', function (Blueprint $table) {
-            // auto rendem string
-
-          $table->unique('tid');
- 
+        Schema::table('users', function (Blueprint $table) {
+            //
+            $table->string('google_id')->nullable();
         });
-
-
     }
 
     /**
@@ -26,7 +22,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('lotteries', function (Blueprint $table) {
+        Schema::table('user', function (Blueprint $table) {
             //
         });
     }

@@ -23,6 +23,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'google_id', // ✅ Include 'google_id' if you want it to be mass assignable
     ];
 
     /**
@@ -47,5 +48,5 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
- 
+
 }

@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
 
@@ -20,6 +21,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+
         Paginator::useBootstrap(); // For Bootstrap-style pagination
+
+     
     }
 }
