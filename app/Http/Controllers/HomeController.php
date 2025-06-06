@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\admin\Lottery;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -22,6 +23,17 @@ class HomeController extends Controller
         return view('ticket', compact('lotteries'))->render();
     }
 
-    return view('index', compact('lotteries'));
+    $winnerLottery = Lottery::where('status','closed')->get('winner_id');
+  $winneruser = [];
+
+for ($i = 0; $i < count($winnerLottery); $i++) {
+    $winner = User::find($winnerLottery[$i]->winner_id);
+    $winneruser[$i] = $winner;
+}
+
+
+
+    return view('index', compact('lotteries','winneruser'));
 }
 }
+
