@@ -5,8 +5,8 @@ Template Name: Gradient Able - Admin Template
 Author: CodedThemes
 Support: https://codedthemes.support-hub.io/
 File: script.js
-Description:  this file will contains behavior, properties, 
-              functionality and interactions of a small module of ui element 
+Description:  this file will contains behavior, properties,
+              functionality and interactions of a small module of ui element
               which used to build a theme layout.
 =========================================================================
 =========================================================================
@@ -488,3 +488,4 @@ var slideToggle = (target, duration = 0) => {
 
 // =======================================================
 // =======================================================
+

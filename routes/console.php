@@ -11,3 +11,4 @@ Artisan::command('inspire', function () {
 
 
 Schedule::command('app:daily-report')->everyMinute();
+Schedule::command('app:create-winner')->weekly();

@@ -2,11 +2,13 @@
 
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\AuthenticationController;
+use App\Http\Controllers\handle;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SingupController;
 use App\Http\Controllers\StripePaymentController;
 use App\Http\Controllers\TicketConttroler;
 use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 
@@ -14,10 +16,14 @@ use Illuminate\Support\Facades\Route;
 // Route::get('admin/login', function () {
 //     return view('admin.login');
 // })->name('login');
-
+Route::middleware('guest')->group(function () {
 Route::get('/google/callback', [AuthenticationController::class, 'googleCallback'])->name('google.callback');
 Route::get('/google', [AuthenticationController::class, 'googleRedirect'])->name('google');
-
+Route::get('/signup',[SingupController::class,'signupform'])->name('signup.form');
+Route::post('/signup',[SingupController::class,'signup'])->name('signup');
+Route::get('/login',[SingupController::class,'loginform'])->name('user.login');
+Route::post('/login',[SingupController::class,'login'])->name('user.login');
+});
 Route::prefix('admin/')->group(function () {
     Route::middleware(['admin'])->group(function () {
         Route::get('dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
@@ -32,10 +38,7 @@ Route::prefix('admin/')->group(function () {
 });
 
 Route::get('/',[HomeController::class, 'index'])->name('home');
-Route::get('/signup',[SingupController::class,'signupform'])->name('signup.form');
-Route::post('/signup',[SingupController::class,'signup'])->name('signup');
-Route::get('/login',[SingupController::class,'loginform'])->name('user.login');
-Route::post('/login',[SingupController::class,'login'])->name('user.login');
+
 
 
 Route::middleware(['Authuser'])->group(function () {
@@ -45,8 +48,19 @@ Route::middleware(['Authuser'])->group(function () {
     Route::get('/mytickets',[UserController::class,'myTickets'])->name('mytickets');
 
 
+    Route::post('/notifications/clear', function () {
+          Auth::user()->notifications()->delete();
+         return redirect()->back();
+       })->name('notifications.clear');
+       Route::post('/notifications/mark-all-read', function () {
+    Auth::user()->unreadNotifications->markAsRead();
+    return redirect()->back();
+})->name('notifications.markAllRead');
+
    Route::controller(StripePaymentController::class)->group(function(){
 
     Route::post('stripe', 'stripePost')->name('stripe.post');
 });
 });
+
+Route::get('/ramram',[handle::class,'handlePayment']);

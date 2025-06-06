@@ -46,9 +46,49 @@
         </div>
     </div>
     @include('header')
-    <div class="mt-4 ">
-        @include('ticket')
+   <div class="pc-content">
+    <div class="row mt-5 pt-5" id="lottery-list">
+        @include('ticket', ['lotteries' => $lotteries])
     </div>
+
+    <div class="row">
+        <div class="col-12 d-flex justify-content-end  mt-3">
+            @if ($lotteries->hasMorePages())
+                <button id="load-more" class="btn btn-primary" data-next-page="{{ $lotteries->currentPage() + 1 }}">
+                    See More
+                </button>
+            @endif
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById('load-more')?.addEventListener('click', function() {
+        let button = this;
+        let nextPage = button.getAttribute('data-next-page');
+
+        fetch(`?page=${nextPage}`, {
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        })
+        .then(response => response.text())
+        .then(html => {
+            document.getElementById('lottery-list').insertAdjacentHTML('beforeend', html);
+
+            const totalPages = {{ $lotteries->lastPage() }};
+            if (nextPage >= totalPages) {
+                button.style.display = 'none';
+            } else {
+                button.setAttribute('data-next-page', parseInt(nextPage) + 1);
+            }
+        })
+        .catch(error => {
+            console.error('Error loading more lotteries:', error);
+        });
+    });
+</script>
+
     <footer class="pc-footer">
         <div class="footer-wrapper container-fluid">
             <div class="row">

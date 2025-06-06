@@ -27,6 +27,8 @@
 
           <div class="ms-auto mx-3 pc-mob-drp d-flex align-items-center gap-3">
               <ul class="list-unstyled d-flex align-items-center mb-0 gap-3 mx-0">
+
+
                   <li class="pc-h-item">
                       <a href="{{ route('home') }}" class="pc-head-link">Home</a>
                   </li>
@@ -39,17 +41,61 @@
                           <a href="{{ route('signup.form') }}" class="pc-head-link"> Become a Member </a>
                       </li>
                   @else
-                      <li class="pc-h-item">
-                          <i class="ph ph-user me-1"></i>
-                          <span class="me-1">{{ Auth::user()->name }}</span>
-                      </li>
                       <li class='pc-h-item'>
                           <a href="{{ route('mytickets') }}" class="pc-head-link">mytickets</a>
                       </li>
                       <li class='pc-h-item'>
-                          <a href="{{ route('logout') }}" class="pc-head-link">Logout</a>
+                         @include('notifications')
                       </li>
 
+                      <div class="ms-auto">
+                          <ul class="list-unstyled">
+                              <li class="dropdown pc-h-item header-user-profile">
+                                  <a class="pc-head-link dropdown-toggle arrow-none me-0" data-bs-toggle="dropdown"
+                                      href="#" role="button" aria-haspopup="false"
+                                      data-bs-auto-close="outside" aria-expanded="false">
+                                      <img src="{{ asset('images/user/avatar-2.jpg') }}" alt="user-image"
+                                          class="user-avtar" />
+                                  </a>
+                                  <div class="dropdown-menu dropdown-user-profile dropdown-menu-end pc-h-dropdown">
+                                      <div class="dropdown-body">
+                                          <div class="profile-notification-scroll position-relative"
+                                              style="max-height: calc(100vh - 225px)">
+                                              <ul class="list-group list-group-flush w-100">
+
+                                                  <li class="list-group-item">
+                                                      <a href="#" class="dropdown-item">
+                                                          <span class="d-flex align-items-center">
+                                                              <i class="ph ph-user-circle"></i>
+                                                              <span>Edit profile <span
+                                                                      class="me-1">{{ Auth::user()->name }}</span>
+                                                              </span>
+                                                          </span>
+                                                        </a>
+                                                      <a href="#" class="dropdown-item">
+                                                          <span class="d-flex align-items-center">
+                                                              <i class="ph ph-gear-six"></i>
+                                                              <span>Settings</span>
+                                                          </span>
+                                                      </a>
+                                                      <a href="{{ route('logout') }}" class="dropdown-item">
+                                                          <span class="d-flex align-items-center">
+                                                              <i class="ph ph-gear-six"></i>
+                                                              <span>Logout </span>
+                                                          </span>
+                                                      </a>
+
+
+
+                                                  </li>
+
+                                              </ul>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </li>
+                          </ul>
+                      </div>
                   @endif
               </ul>
           </div>
