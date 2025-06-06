@@ -64,14 +64,14 @@
                                     placeholder="Email Address" />
                             </div>
                              @error('email')
-                              <div class="alert alert-danger">{{ $message }}</div>
+                              <samp class="red-error">{{ $message }}</samp>
                                @enderror
                             <div class="form-group mb-3">
                                 <input type="password" class="form-control" name='password' id="floatingInput1"
                                     placeholder="Password" />
                             </div>
                              @error('password')
-                              <div class="alert alert-danger">{{ $message }}</div>
+                              <samp class="red-error">{{ $message }}</samp>
                                @enderror
                             <div class="d-flex mt-1 justify-content-between align-items-center">
 

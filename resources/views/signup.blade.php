@@ -63,7 +63,7 @@
                                             placeholder="First Name" />
                                     </div>
                                     @error('First_name')
-                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        <samp class="red-error">{{ $message }}</samp>
                                     @enderror
                                 </div>
 
@@ -73,7 +73,7 @@
                                             placeholder="Last Name" />
                                     </div>
                                     @error('Last_name')
-                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        <samp class="red-error">{{ $message }}</samp>
                                     @enderror
                                 </div>
                             </div>
@@ -81,13 +81,13 @@
                                 <input type="email" class="form-control" name="email" placeholder="Email Address" />
                             </div>
                             @error('email')
-                                <div class="alert alert-danger">{{ $message }}</div>
+                                <samp class="red-error">{{ $message }}</samp>
                             @enderror
                             <div class="form-group mb-3">
                                 <input type="password" class="form-control" name="password" placeholder="Password" />
                             </div>
                             @error('password')
-                                <div class="alert alert-danger">{{ $message }}</div>
+                                <samp class="red-error">{{ $message }}</samp>
                             @enderror
                             <div class="form-group mb-3">
                                 <input type="password" class="form-control" name="password_confirmation"
@@ -104,23 +104,12 @@
                         <div class="text-center">
                             <ul class="list-inline mx-auto mt-3 mb-0">
                                 <li class="list-inline-item">
-                                    <a href="https://www.facebook.com/" class="avtar avtar-s rounded-circle bg-facebook"
-                                        target="_blank">
-                                        <i class="fab fa-facebook-f text-white"></i>
-                                    </a>
+                                     <a href="{{ route('google') }}" class="avtar avtar-s rounded-circle bg-googleplus"
+                                            target="_blank">
+                                            <i class="fab fa-google text-white"></i>
+                                        </a>
                                 </li>
-                                <li class="list-inline-item">
-                                    <a href="https://twitter.com/" class="avtar avtar-s rounded-circle bg-twitter"
-                                        target="_blank">
-                                        <i class="fab fa-twitter text-white"></i>
-                                    </a>
-                                </li>
-                                <li class="list-inline-item">
-                                    <a href="https://myaccount.google.com/"
-                                        class="avtar avtar-s rounded-circle bg-googleplus" target="_blank">
-                                        <i class="fab fa-google text-white"></i>
-                                    </a>
-                                </li>
+                            
                             </ul>
                         </div>
                     </div>

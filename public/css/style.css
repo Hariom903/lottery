@@ -21504,7 +21504,11 @@ select.form-control[data-multiselectsplitter-firstselect-selector], select.form-
   margin-left: 15px; /* Space between image and text */
 }
 
-
+.red-error{
+    color:red;
+    font-size:14px;
+    font-weight:bold;
+}
 
 
 

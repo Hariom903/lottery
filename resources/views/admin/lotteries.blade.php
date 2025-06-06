@@ -12,8 +12,8 @@
             <!-- Button trigger modal -->
 
             <!-- Modal -->
-            <div class="modal fade" id="lottery" tabindex="-1" aria-labelledby="lotteryModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
+            <div class="modal  fade" id="lottery" tabindex="-1" aria-labelledby="lotteryModalLabel" aria-hidden="true">
+                <div class="modal-dialog ">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title " id="lotteryModalLabel">Add Lottery Here..! </h5>
@@ -28,17 +28,17 @@
                                         name="title">
                                 </div>
                                 @error('title')
-                                    <div class="alert alert-danger">{{ $message }}</div>
+                                    <samp class="red-error">{{ $message }}</samp>
                                 @enderror
                                 <div class="mb-3">
                                     <label for="winning_number" class="form-label">description</label>
-                                   
-                                        <textarea id="markdown-editor" value="{{ old('description') }}"  name="description"></textarea>
+
+                                        <textarea id="markdown-editor"  rows="16"  value="{{ old('description') }}"  name="description"></textarea>
 
 
                                 </div>
                                 @error('description')
-                                    <div class="alert alert-danger">{{ $message }}</div>
+                                    <samp class="red-error">{{ $message }}</samp>
                                 @enderror
 
                                 <div class="mb-3">
@@ -47,7 +47,8 @@
                                         id="ticket_price" name="ticket_price">
                                 </div>
                                 @error('ticket_price')
-                                    <div class="alert alert-danger">{{ $message }}</div>
+                                    <samp class="red-error">{{ $message }}</samp>
+
                                 @enderror
 
                                 <div class="mb-3">
@@ -56,7 +57,7 @@
                                         id="total_tickets" name="total_tickets">
                                 </div>
                                 @error('total_tickets')
-                                    <div class="alert alert-danger">{{ $message }}</div>
+                                    <samp class="red-error">{{ $message }}</samp>
                                 @enderror
 
                                 <div class="mb-3">
@@ -65,7 +66,7 @@
                                         id="sold_tickets" name="sold_tickets">
                                 </div>
                                 @error('sold_tickets')
-                                    <div class="alert alert-danger">{{ $message }}</div>
+                                    <samp class="red-error">{{ $message }}</samp>
                                 @enderror
 
                                 <div class ="mb-3">

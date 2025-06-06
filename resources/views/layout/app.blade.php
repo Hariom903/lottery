@@ -95,36 +95,41 @@
     <script src="{{ asset('js/script.js') }}"></script>
     <script src="{{ asset('js/theme.js') }}"></script>
     <script src="{{ asset('js/plugins/feather.min.js') }}"></script>
-     <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
- <script>
-                                        var simplemde = new SimpleMDE({ element: document.getElementById("markdown-editor") });
-                                      </script>
-<script>
-      layout_change('light');
+    <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+    <script>
+        var simplemde = new SimpleMDE({
+            element: document.getElementById("markdown-editor")
+
+          
+
+        });
+    </script>
+    <script>
+        layout_change('light');
     </script>
 
     <script>
-      layout_sidebar_change('light');
+        layout_sidebar_change('light');
     </script>
 
     <script>
-      change_box_container('false');
+        change_box_container('false');
     </script>
 
     <script>
-      layout_caption_change('true');
+        layout_caption_change('true');
     </script>
 
     <script>
-      layout_rtl_change('false');
+        layout_rtl_change('false');
     </script>
 
     <script>
-      preset_change('preset-1');
+        preset_change('preset-1');
     </script>
 
     <script>
-      header_change('header-1');
+        header_change('header-1');
     </script>
 
 

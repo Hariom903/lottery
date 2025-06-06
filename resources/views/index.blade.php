@@ -45,7 +45,7 @@
 <!-- [Head] end -->
 <!-- [Body] Start -->
 
-<body data-pc-header="header-1" data-pc-preset="preset-1" data-pc-sidebar-theme="light" data-pc-sidebar-caption="true"
+<body data-pc-header="header-1" data-pc-preset="preset-1"  data-pc-sidebar-theme="light" data-pc-sidebar-caption="true"
     data-pc-direction="ltr" data-pc-theme="light">
     <!-- [ Pre-loader ] start -->
     <div class="loader-bg">
@@ -54,12 +54,12 @@
         </div>
     </div>
     @include('header')
-    <div class="pc-content">
-        <div class="row mt-5 pt-5" id="lottery-list">
+    <div class="container  ">
+        <div class="row mt-5   pt-5" id="lottery-list">
             @include('ticket', ['lotteries' => $lotteries])
         </div>
 
-        <div class="row">
+        <div class="row mb-2 ">
             <div class="col-12 d-flex justify-content-end  mt-3">
                 @if ($lotteries->hasMorePages())
                     <button id="load-more" class="btn btn-primary" data-next-page="{{ $lotteries->currentPage() + 1 }}">
@@ -71,25 +71,29 @@
     </div>
 
     <div class="container">
-    <div class="owl-carousel owl-theme">
-        @foreach ($winneruser as $winner)
-            <div class="item">
-            {{-- title winner  --}}
-            <div class="winner-card shadow-sm p-3 mb-4 bg-white rounded d-flex align-items-center">
-                <img src="{{ asset('images/user/avatar-2.jpg') }}" alt="{{ $winner->name }}" class="winner-avatar  ">
+        <div class="owl-carousel owl-theme">
+            @foreach ($winneruser as $winner)
+                <div class="item">
+                    {{-- title winner  --}}
 
-                <div class="winner-info ms-3">
-
-
-                        <h5 class="mb-2 text-primary">{{ $winner->name }}</h5>
-                        <p class="mb-0">{{ $winner->email }}</p>
+                    <div class="winner-card shadow-sm p-3 mb-4 bg-white rounded d-flex align-items-center">
+                        <div class=row>
+                            <div class="col-4">
+                                <img src="{{ asset('images/user/avatar-2.jpg') }}" alt="{{ $winner->name }}"
+                                    class="winner-avatar  ">
+                            </div>
+                            <div class="col-8">
+                                <div class="winner-info ms-3">
+                                    <h5 class="mb-2 text-primary">{{ $winner->name }}</h5>
+                                    <p class="mb-0">{{ $winner->email }}</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-
-        @endforeach
+            @endforeach
+        </div>
     </div>
-</div>
 
 
     <script>
@@ -110,10 +114,10 @@
                     },
                     768: {
                         items: 3
-                        },
+                    },
 
                     1000: {
-                        items: 4
+                        items: 3
                     }
                 }
             });
@@ -148,6 +152,7 @@
         });
     </script>
     <footer id="footer" class="overflow-hidden">
+        <hr>
         <div class="container">
             <div class="row">
                 <div class="footer-top-area">
@@ -157,16 +162,13 @@
                                 <h5 class="widget-title pb-2">Quick Links</h5>
                                 <ul class="menu-list list-unstyled text-uppercase">
                                     <li class="menu-item pb-2">
-                                        <a href="#">Home</a>
+                                        <a href="/">Home</a>
                                     </li>
                                     <li class="menu-item pb-2">
                                         <a href="#">About</a>
                                     </li>
                                     <li class="menu-item pb-2">
-                                        <a href="#">Shop</a>
-                                    </li>
-                                    <li class="menu-item pb-2">
-                                        <a href="#">Blogs</a>
+                                        <a href="{{ url('mytickets') }}">myticat</a>
                                     </li>
                                     <li class="menu-item pb-2">
                                         <a href="#">Contact</a>
