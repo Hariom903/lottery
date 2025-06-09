@@ -82,6 +82,7 @@
                                 <img src="{{ asset('images/user/avatar-2.jpg') }}" alt="{{ $winner->name }}"
                                     class="winner-avatar  ">
                             </div>
+                       
                             <div class="col-8">
                                 <div class="winner-info ms-3">
                                     <h5 class="mb-2 text-primary">{{ $winner->name }}</h5>
@@ -196,7 +197,7 @@
         <div class="footer-wrapper container-fluid">
             <div class="row">
                 <div class="col-sm-6 my-1">
-                    <p class="m-0">Gradient Able &#9829; crafted by Team <a href="#" target="_blank">Hariom
+                    <p class="m-0">Gradient Able &#9829; crafted by Team <a href="http://hariom.ct.ws" target="_blank">Hariom
                             dangi </a></p>
                 </div>
                 <div class="col-sm-6 ms-auto my-1">

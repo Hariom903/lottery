@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\admin\PriceaddController;
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\handle;
 use App\Http\Controllers\HomeController;
@@ -24,11 +25,18 @@ Route::post('/signup',[SingupController::class,'signup'])->name('signup');
 Route::get('/login',[SingupController::class,'loginform'])->name('user.login');
 Route::post('/login',[SingupController::class,'login'])->name('user.login');
 });
+
 Route::prefix('admin/')->group(function () {
     Route::middleware(['admin'])->group(function () {
+
         Route::get('dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
         Route::get('lottery', [AdminController::class, 'lottery'])->name('lottery');
         Route::post('lottery/store', [AdminController::class, 'lotteryStore'])->name('lottery.store');
+        Route::get('lottery/{tid}',[AdminController::class,'show'])->name('lottery.show');
+        Route::post('lottery/price',[AdminController::class, 'pricestore'])->name('lottery.prizes.store');
+        Route::get('addprice',[PriceaddController::class,'index'])->name('price.add');
+        Route::post('addprice',[PriceaddController::class,'store'])->name('price.add.store');
+        Route::post('winnernumber',[PriceaddController::class,'winnernumber'])->name('winnernumber');
     });
 
     Route::get('login',[AdminController::class,'login'])->name('login');
@@ -46,6 +54,7 @@ Route::middleware(['Authuser'])->group(function () {
     Route::get('/cards/{tid}',[TicketConttroler::class,'index']);
     Route::post('/cards',[TicketConttroler::class,'store'])->name('cards.store');
     Route::get('/mytickets',[UserController::class,'myTickets'])->name('mytickets');
+
 
 
     Route::post('/notifications/clear', function () {

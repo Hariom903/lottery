@@ -64,55 +64,81 @@
                     <h4>{{ $ticket->title }}</h4>
                 </div>
 
-                <div class="card-body">
-                    <p><strong>Description:</strong> {{ $ticket->description }}</p>
-                    <p><strong>Ticket Price:</strong> {{ $ticket->ticket_price }}</p>
-                    <p><strong>Total Tickets:</strong> {{ $ticket->total_tickets }}</p>
-                    <p><strong>Sold Tickets:</strong> {{ $ticket->sold_tickets }}</p>
+                <div class="row ">
+                    <div class="col-md-6">
+                        <div class="card-body">
+                            <p><strong>Description:</strong> {{ $ticket->description }}</p>
+                            <p><strong>Ticket Price:</strong> {{ $ticket->ticket_price }}</p>
+                            <p><strong>Total Tickets:</strong> {{ $ticket->total_tickets }}</p>
+                            <p><strong>Sold Tickets:</strong> {{ $ticket->sold_tickets }}</p>
 
-                    <form action="{{ route('stripe.post') }}" method="POST" id="checkout-form">
-                        @csrf
+                            <form action="{{ route('stripe.post') }}" method="POST" id="checkout-form">
+                                @csrf
 
-                        <input type="hidden" name="lottery_id" value="{{ $ticket->id }}">
-                        <input type="hidden" name="user_id" value="{{ Auth::id() }}">
-                        <input type="hidden" name="price" value="{{ $ticket->ticket_price }}">
+                                <input type="hidden" name="lottery_id" value="{{ $ticket->id }}">
+                                <input type="hidden" name="user_id" value="{{ Auth::id() }}">
+                                <input type="hidden" name="price" value="{{ $ticket->ticket_price }}">
 
-                        <div class="form-group">
-                            <label for="quantity">Number of Tickets to Buy:</label>
-                            <input type="number" name="quantity" min="1"
-                                max="{{ $ticket->total_tickets - $ticket->sold_tickets }}" class="form-control"
-                                required>
+                                <div class="form-group">
+                                    <label for="quantity">Number of Tickets to Buy:</label>
+                                    <input type="number" name="quantity" min="1"
+                                        max="{{ $ticket->total_tickets - $ticket->sold_tickets }}" class="form-control"
+                                        required>
+                                </div>
+
+                                <label>Name on Card</label>
+                                <input type="text" name="name" class="form-control" placeholder="Cardholder Name">
+
+                                <div id="card-element" class="form-control my-3"></div>
+                                <input type="hidden" name="payment_method" id="payment-method">
+
+                                <button id="pay-btn" type="button" class="btn btn-primary w-100 mt-3">
+                                    Pay ${{ $ticket->ticket_price }}
+                                </button>
+                            </form>
                         </div>
+                    </div>
 
-                        <label>Name on Card</label>
-                        <input type="text" name="name" class="form-control" placeholder="Cardholder Name">
-
-                        <div id="card-element" class="form-control my-3"></div>
-                        <input type="hidden" name="payment_method" id="payment-method">
-
-                        <button id="pay-btn" type="button" class="btn btn-primary w-100 mt-3">
-                            Pay ${{ $ticket->ticket_price }}
-                        </button>
-                    </form>
+                    <div class="col-md-6 pt-4 col-xl-3">
+                        @foreach ( $ticket->prizes as $price)
+                            <div class="card bg-grd-danger order-card">
+                                <div class="card-body">
+                                    <div class="row">
+                                    <div class="col-9">
+                                    <h6 class="text-white">{{ $price->prize_name }}</h6>
+                                    <h2 class="text-start  text-white">
+                                        <i class="feather icon-award float-start"></i><span class="h5 text-white">Winner
+                                            Position {{ $price->winner_position }} </span>
+                                    </h2>
+                                    </div>
+                                    <div class="col-3">
+                                     {{-- img  --}}
+                                     <img src="{{ asset('images/'. $price->img_name) }}" class="img-fluid" alt="winner">
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
                 </div>
+
             </div>
         </div>
-    </div>
-    <footer class="pc-footer">
-        <div class="footer-wrapper container-fluid">
-            <div class="row">
-                <div class="col-sm-6 my-1">
-                    <p class="m-0">Gradient Able &#9829; crafted by Team <a href="#" target="_blank">Hariom
-                            dangi </a></p>
-                </div>
-                <div class="col-sm-6 ms-auto my-1">
-                    <ul class="list-inline footer-link mb-0 justify-content-sm-end d-flex">
-                        <li class="list-inline-item"><a href="{{ route('home') }}">Home</a></li>
-                    </ul>
+        <footer class="pc-footer">
+            <div class="footer-wrapper container-fluid">
+                <div class="row">
+                    <div class="col-sm-6 my-1">
+                        <p class="m-0">Gradient Able &#9829; crafted by Team <a href="#" target="_blank">Hariom
+                                dangi </a></p>
+                    </div>
+                    <div class="col-sm-6 ms-auto my-1">
+                        <ul class="list-inline footer-link mb-0 justify-content-sm-end d-flex">
+                            <li class="list-inline-item"><a href="{{ route('home') }}">Home</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </div>
-    </footer>
+        </footer>
 </body>
 <!-- Bootstrap Bundle with Popper -->
 

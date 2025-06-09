@@ -33,7 +33,7 @@
     <link rel="stylesheet" href="{{ asset('css/style.css') }}" id="main-style-link" />
     <link rel="stylesheet" href="{{ asset('css/style-preset.css') }}" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
-
+    
 
 </head>
 <!-- [Head] end -->
@@ -100,7 +100,7 @@
         var simplemde = new SimpleMDE({
             element: document.getElementById("markdown-editor")
 
-          
+
 
         });
     </script>

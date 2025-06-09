@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\admin\Lottery;
+use App\Models\admin\WinnerPrice;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
@@ -63,18 +64,55 @@ class AdminController extends Controller
             'description' => ['required','string'],
             'ticket_price' => ['required', 'numeric'],
             'total_tickets'=> ['required', 'numeric'],
-            'sold_tickets' => ['required', 'numeric'],
+            'number_of_winners' => ['required', 'numeric','min:1'],
 
         ]);
+
         // Validate and sanitize input data
          $data = ['draw_datetime'=> Carbon::now()->addDays(6)]; // or use $data->created_at->addDays(6);
          $data = array_merge($data, $validatedData);
         // Store data in database
+
         Lottery::create($data);
         // Redirect to lottery page
         return back()->with('success', 'Lottery created successfully.');
 
     }
-}
 
+
+    public function show($id){
+
+        $lottery = Lottery::where('tid',$id)->first();
+        if($lottery){
+            return view('admin.showlotteyinfo', compact('lottery'));
+        }
+
+        return redirect()->route('lottery');
+    }
+    public function pricestore(Request $request){
+
+   $val= $request->validate([
+    'lottery_id' => 'required|exists:lotteries,id',
+    'winning_price' => 'required|array',
+    'winning_price.*' => 'required|string|max:255',
+    'prize_name' => 'required|array',
+    'prize_name.*' => 'required|string|max:255',
+]);
+
+
+    foreach ($request->winning_price as $position => $price) {
+
+       $pric =  WinnerPrice::create([
+        'lottery_id' => $request->lottery_id,
+        'winner_position' => $position,
+        'prize_name' => $request->prize_name[$position] ?? 'Prize ' . $position,
+        'prize_amount' => $price ?? 0,
+    ]);
+
+
+
+    return redirect()->back()->with('success', 'Winning prizes added successfully!');
+    }
+}
+}
 

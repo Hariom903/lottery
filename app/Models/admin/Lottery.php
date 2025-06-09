@@ -3,6 +3,7 @@
 namespace App\Models\admin;
 
 use App\Models\Ticket;
+use App\Models\admin\WinnerPrice;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str; // ✅ Add this import
 
@@ -13,7 +14,7 @@ class Lottery extends Model
         'description',
         'ticket_price',
         'total_tickets',
-        'sold_tickets',
+        'number_of_winners',
         'draw_datetime',
         'tid', // ✅ Include 'tid' if you want it to be mass assignable
     ];
@@ -32,4 +33,8 @@ class Lottery extends Model
     {
         return $this->hasMany(Ticket::class);
     }
+    public function prizes()
+{
+    return $this->hasMany(WinnerPrice::class);
+}
 }

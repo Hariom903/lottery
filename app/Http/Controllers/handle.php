@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\admin\Lottery;
+use App\Models\admin\WinnerPrice;
 use App\Models\Ticket;
 use App\Models\User;
 use App\Notifications\Winner;
@@ -25,19 +26,29 @@ class handle extends Controller
                     continue; // Skip if already closed
                   }
                 $lottery_id = $lottery->id;
+                 $number_of_winners = $lottery->number_of_winners;
+                   for ($i = 0; $i < $number_of_winners; $i++) {
 
-                  $ticket = Ticket::where('lottery_id', $lottery_id)->inRandomOrder()->first();
-                if ($ticket) {
+                       $ticket = Ticket::where('lottery_id', $lottery_id)->inRandomOrder()->first();
+
+                  if ($ticket) {
 
 
                     $ticket->is_winning = true;
                     $ticket->save();
-                  $lottey_id = $ticket->lottery_id;
-                  $user_id = $ticket->user_id;
-                 $lotters = Lottery::find($lottery_id);
-                 $lotters->winner_id = $user_id;
-                 $lotters->status = 'closed';
-                 $lotters->save();
+                   $lottey_id = $ticket->lottery_id;
+                   $user_id = $ticket->user_id;
+                   echo($user_id);
+
+                   $lotters = Lottery::find($lottery_id);
+                   $winner = WinnerPrice::where('winner_position', $i+1)->first();
+                   $winner->winner_id = $user_id;
+                   $winner->status = 'successful';
+                   $winner->save();
+                   $lotters->winner_id = $user_id;
+                   $lotters->status = 'closed';
+                   $lotters->save();
+
 
                  $user = User::find($user_id);
                  if($user){
@@ -45,6 +56,8 @@ class handle extends Controller
                       print_r("Winner has been notified");
                  }
 
+
+                }
 
                 }
 

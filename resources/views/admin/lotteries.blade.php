@@ -61,9 +61,9 @@
                                 @enderror
 
                                 <div class="mb-3">
-                                    <label for="sold_tickets" class="form-label">Sold Tickets</label>
-                                    <input type="number" value="{{ old('sold_tickets') }}" class="form-control"
-                                        id="sold_tickets" name="sold_tickets">
+                                    <label for="number_winners" class="form-label"> Number of winners </label>
+                                    <input type="number" min='1' value="{{ old('number_winners') }}" class="form-control"
+                                        id="number_winners" name="number_of_winners">
                                 </div>
                                 @error('sold_tickets')
                                     <samp class="red-error">{{ $message }}</samp>
@@ -81,7 +81,7 @@
         {{-- // serch bar goes here... --}}
         <div class="col-9 d-flex justify-content-end">
             <form action="{{ route('lottery') }}" method="GET">
-            <div class="input-group" style="width: 350px;">
+                <div class="input-group" style="width: 350px;">
                     <input type="text" class="form-control"  name='search' value="{{ old('search') }}"
                         placeholder="Search by lottery name...">
                     <button class="btn btn-primary" type="submit">Search</button>
@@ -99,7 +99,8 @@
 
     <div class="row">
         @foreach ($lotteries as $lottery)
-            <div class="col-md-6 col-xl-3">
+        <div class="col-md-6 col-xl-3">
+          <a href="{{ route('lottery.show',$lottery->tid) }}">
                 <div class="card bg-grd-primary order-card">
                     <div class="card-body">
                         <h6 class="text-white">{{ $lottery->title }}</h6>
@@ -117,8 +118,9 @@
                                     {{ $lottery->total_tickets }}</span></p>
                     </div>
                 </div>
+            </a>
             </div>
-        @endforeach
+            @endforeach
     </div>
     <div class="row ">
         <div class="col-12 d-flex justify-content-end mt-3">

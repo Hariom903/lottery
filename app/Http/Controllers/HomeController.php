@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\admin\Lottery;
 use App\Models\User;
+use App\Models\Winerprice;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -16,21 +17,26 @@ class HomeController extends Controller
 
 
 
-
-       $lotteries = Lottery::paginate(6);
+       $lotteries = Lottery::where('status','open')->paginate(6);
 
     if ($request->ajax()) {
         return view('ticket', compact('lotteries'))->render();
     }
 
-    $winnerLottery = Lottery::where('status','closed')->get('winner_id');
-  $winneruser = [];
+    $winnerLottery = Lottery::with('prizes.user')->where('status','closed')->get();
+    $winneruser = [];
 
-for ($i = 0; $i < count($winnerLottery); $i++) {
-    $winner = User::find($winnerLottery[$i]->winner_id);
-    $winneruser[$i] = $winner;
+  foreach ($winnerLottery as $lottery) {
+    foreach ($lottery->prizes as $prize) {
+        if ($prize->user) {
+            $winneruser[] = $prize->user;  // collect all users
+        }
+    }
 }
 
+
+
+    // $winneruser = User::whereIn('id', $winnerLottery->pluck('winner_id'))->get(); // fetch all winner users in one query
 
 
     return view('index', compact('lotteries','winneruser'));

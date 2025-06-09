@@ -35,9 +35,9 @@
 
                  </li>
                  <li class="pc-item">
-                     <a href="#" class="pc-link">
-                         <span class="pc-micon"><i class="ph ph-palette"></i></span>
-                         <span class="pc-mtext">Color</span>
+                     <a href="{{ route('price.add') }}" class="pc-link">
+                         <span class="pc-micon"><i class="ph ph-currency-inr"></i></span>
+                         <span class="pc-mtext"> Add price  </span>
                      </a>
                  </li>
                  <li class="pc-item">
