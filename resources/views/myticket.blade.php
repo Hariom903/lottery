@@ -3,7 +3,7 @@
 <!-- [Head] start -->
 
 <head>
-    <title> My Ticketes  </title>
+    <title> My Ticketes </title>
     <!-- [Meta] -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui" />
@@ -44,87 +44,33 @@
         <div class="loader-track">
             <div class="loader-fill"></div>
         </div>
-      </div>
-  @include('header')
-<div class="container mb-5 mt-5">
-    <div class="row mt-5 pt-5 ">
-        @foreach ($tickets as $ticket)
-            <div class="col-md-6 col-xl-3">
-                <div class="card bg-grd-success order-card">
-                    <div class="card-body">
-                        <h6 class="text-white">{{ $ticket->lottery->title }}</h6>
-                        <h2 class="text-start h4 text-white"><i class="ph ph-ticket"> </i> <span>Ticket
-                                number :{{ $ticket->ticket_number }}</span>
-
-                            <h2 class="text-start h5 text-white">
-                                <span>Open Date:
-                                    {{ \Carbon\Carbon::parse($ticket->lottery->draw_datetime)->format('d M Y') }}</span>
-                            </h2>
-
-
-                    </div>
-                </div>
-            </div>
-        @endforeach
     </div>
-    </div>
- <footer id="footer" class="overflow-hidden">
-        <hr>
-        <div class="container">
-            <div class="row">
-                <div class="footer-top-area">
-                    <div class="row d-flex flex-wrap justify-content-between">
-                        <div class="col-lg-2 col-sm-6 pb-3">
-                            <div class="footer-menu text-uppercase">
-                                <h5 class="widget-title pb-2">Quick Links</h5>
-                                <ul class="menu-list list-unstyled text-uppercase">
-                                    <li class="menu-item pb-2">
-                                        <a href="/">Home</a>
-                                    </li>
-                                    <li class="menu-item pb-2">
-                                        <a href="#">About</a>
-                                    </li>
-                                    <li class="menu-item pb-2">
-                                        <a href="{{ url('mytickets') }}">myticat</a>
-                                    </li>
-                                    <li class="menu-item pb-2">
-                                        <a href="#">Contact</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
+    @include('header')
+    <div class="container mb-5 mt-5">
+        <div class="row mt-5 pt-5 ">
+            @foreach ($tickets as $ticket)
+                <div class="col-md-6 col-xl-3">
+                    <div class="card bg-grd-success order-card">
+                        <div class="card-body">
+                            <h6 class="text-white">{{ $ticket->lottery->title }}</h6>
+                            <h2 class="text-start h4 text-white"><i class="ph ph-ticket"> </i> <span>Ticket
+                                    number :{{ $ticket->ticket_number }}</span>
 
-                        <div class="col-lg-3 col-sm-6 pb-3">
-                            <div class="footer-menu contact-item">
-                                <h5 class="widget-title text-uppercase pb-2">Contact Us</h5>
-                                <p>Do you have any queries or suggestions? <a href="mailto:">yourinfo@gmail.com</a>
-                                </p>
-                                <p>If you need support? Just give us a call. <a href="">+55 111 222 333 44</a>
-                                </p>
-                            </div>
+                                <h2 class="text-start h5 text-white">
+                                    <span>Open Date:
+                                        {{ \Carbon\Carbon::parse($ticket->lottery->draw_datetime)->format('d M Y') }}</span>
+                                </h2>
+
+
                         </div>
                     </div>
                 </div>
-            </div>
+            @endforeach
         </div>
-        <hr>
-    </footer>
+    </div>
 
-       <footer class="pc-footer">
-        <div class="footer-wrapper container-fluid">
-            <div class="row">
-                <div class="col-sm-6 my-1">
-                    <p class="m-0">Gradient Able &#9829; crafted by Team <a href="http://hariom.ct.ws" target="_blank">Hariom
-                            dangi </a></p>
-                </div>
-                <div class="col-sm-6 ms-auto my-1">
-                    <ul class="list-inline footer-link mb-0 justify-content-sm-end d-flex">
-                        <li class="list-inline-item"><a href="{{ route('home') }}">Home</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </footer>
+
+   @include('footer')
 </body>
 <!-- Bootstrap Bundle with Popper -->
 
@@ -137,4 +83,3 @@
 <script src="{{ asset('js/plugins/feather.min.js') }}"></script>
 
 </html>
-
