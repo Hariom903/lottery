@@ -22,7 +22,7 @@ File: style.css
   --pc-sidebar-shadow: 2px 0 2.94px 0.06px rgba(4, 26, 55, 0.16);
   --pc-sidebar-caption-color: var(--pc-heading-color);
   --pc-sidebar-border: none;
-  --pc-header-background: linear-gradient(to right, #4099ff, #73b4ff);
+  --pc-header-background: linear-gradient(to right,#243d5b, #73b4ff);
   --pc-header-color: #fff;
   --pc-header-shadow: none;
   --pc-card-box-shadow: 0 1px 2.94px 0.06px rgba(4, 26, 55, 0.16);
@@ -21509,6 +21509,15 @@ select.form-control[data-multiselectsplitter-firstselect-selector], select.form-
     font-size:14px;
     font-weight:bold;
 }
+
+  #particles-js {
+    position: absolute;
+    width: 100%;
+    height: 70%;
+    background-color: "#142d49"; /* Optional background color */
+    z-index: -1; /* Send it behind content */
+  }
+
 
 
 

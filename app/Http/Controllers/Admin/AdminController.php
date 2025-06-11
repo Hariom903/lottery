@@ -26,7 +26,8 @@ class AdminController extends Controller
         if (Auth::attempt(['email' => $credentials['email'], 'password' => $credentials['password'], 'role' => 'admin'])) {
             $request->session()->regenerate();
 
-            return redirect("admin/dashboard");
+            // return redirect();
+             return redirect()->intended("admin/dashboard");
         }
 
         return back()->withErrors([

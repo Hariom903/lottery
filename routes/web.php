@@ -5,6 +5,7 @@ use App\Http\Controllers\admin\PriceaddController;
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\handle;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\SingupController;
 use App\Http\Controllers\StripePaymentController;
 use App\Http\Controllers\TicketConttroler;
@@ -13,7 +14,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 
-
+// Auth::routes([
+//     'verity'=> true,
+// ]);
 // Route::get('admin/login', function () {
 //     return view('admin.login');
 // })->name('login');
@@ -45,26 +48,21 @@ Route::prefix('admin/')->group(function () {
 
 });
 
-Route::get('/',[HomeController::class, 'index'])->name('home');
 
+Route::get('/',[HomeController::class, 'index'])->name('home');
 
 
 Route::middleware(['Authuser'])->group(function () {
     Route::get('/logout', [SingupController::class, 'logout'])->name('logout');
-    Route::get('/cards/{tid}',[TicketConttroler::class,'index']);
     Route::post('/cards',[TicketConttroler::class,'store'])->name('cards.store');
+    Route::get('/cards/{tid}',[TicketConttroler::class,'index']);
     Route::get('/mytickets',[UserController::class,'myTickets'])->name('mytickets');
 
 
 
-    Route::post('/notifications/clear', function () {
-          Auth::user()->notifications()->delete();
-         return redirect()->back();
-       })->name('notifications.clear');
-       Route::post('/notifications/mark-all-read', function () {
-    Auth::user()->unreadNotifications->markAsRead();
-    return redirect()->back();
-})->name('notifications.markAllRead');
+    Route::post('/notifications/clear',[NotificationController::class ,'Delete'])->name('notifications.clear');
+     Route::post('/notifications/mark-all-read',[NotificationController::class,'MarkAsRead'])->name('notifications.markAllRead');
+
 
    Route::controller(StripePaymentController::class)->group(function(){
 

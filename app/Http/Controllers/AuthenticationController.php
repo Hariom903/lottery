@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 use Laravel\Socialite\Facades\Socialite;
 
 class AuthenticationController extends Controller
@@ -31,7 +32,8 @@ class AuthenticationController extends Controller
              ]);
              if($user1){
                 Auth::login($user1);
-                return redirect()->route('home');
+                 
+                     return redirect()->intended();
             }
 
 
@@ -45,7 +47,8 @@ class AuthenticationController extends Controller
             $userlogin->google_id = $user->id;
             $userlogin->save();
             Auth::login($userlogin);
-             return redirect()->route('home');
+              return redirect()->intended('/');
+
          }
 }
 

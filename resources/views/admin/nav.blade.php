@@ -6,6 +6,7 @@
                  <img src="{{ asset('images/logo-white.svg') }}" alt="logo image" class="logo-lg" />
              </a>
          </div>
+    
          <div class="navbar-content">
              <ul class="pc-navbar">
                  <li class="pc-item pc-caption">

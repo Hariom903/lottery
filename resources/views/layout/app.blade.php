@@ -15,7 +15,7 @@
     <meta name="author" content="codedthemes" />
 
     <!-- [Favicon] icon -->
-
+   <link rel="shortcut icon" href="{{ asset('images/logo.png') }}" type="image/x-icon">
     <!-- map-vector css -->
     <link rel="stylesheet" href="{{ asset('css/plugins/jsvectormap.min.css') }}" />
     <!-- [Google Font : Poppins] icon -->
@@ -33,7 +33,7 @@
     <link rel="stylesheet" href="{{ asset('css/style.css') }}" id="main-style-link" />
     <link rel="stylesheet" href="{{ asset('css/style-preset.css') }}" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
-    
+
 
 </head>
 <!-- [Head] end -->

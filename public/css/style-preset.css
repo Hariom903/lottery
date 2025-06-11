@@ -24,7 +24,7 @@ body {
   --pc-sidebar-shadow: 2px 0 2.94px 0.06px rgba(4, 26, 55, 0.16);
   --pc-sidebar-caption-color: var(--pc-heading-color);
   --pc-sidebar-border: none;
-  --pc-header-background: linear-gradient(to right, #4099ff, #73b4ff);
+  --pc-header-background: linear-gradient(to right, #1fb870, #73b4ff);
   --pc-header-color: #fff;
   --pc-header-shadow: none;
   --pc-card-box-shadow: 0 1px 2.94px 0.06px rgba(4, 26, 55, 0.16);
@@ -2112,19 +2112,19 @@ body {
 }
 
 [data-pc-header=header-1] {
-  --pc-header-background: linear-gradient(to right, #4099ff, #73b4ff);
+  --pc-header-background: linear-gradient(to right, #142d49, #73b4ff);
 }
 
 [data-pc-header=header-2] {
-  --pc-header-background: linear-gradient(to right, #ff5370, #f48fb1);
+  --pc-header-background: linear-gradient(to right, #142d49, #f48fb1);
 }
 
 [data-pc-header=header-3] {
-  --pc-header-background: linear-gradient(to right, #4099ff, #6e7ff3);
+  --pc-header-background: linear-gradient(to right, #142d49, #6e7ff3);
 }
 
 [data-pc-header=header-4] {
-  --pc-header-background: linear-gradient(to right, #38a9f9, #43e9b3);
+  --pc-header-background: linear-gradient(to right,#142d49, #43e9b3);
 }
 
 [data-pc-header=header-5] {

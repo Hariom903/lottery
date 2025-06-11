@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
+
 class SingupController extends Controller
 {
     //
@@ -45,7 +47,10 @@ class SingupController extends Controller
         // Attempt to authenticate the user
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             // If successful, redirect to the dashboard
-            return redirect()->route('home');
+           Cookie::queue(Cookie::make('user_email', $request->email, 60 * 24 * 30)); // 30 days
+            Cookie::queue(Cookie::make('user_password', $request->password, 60 * 24 * 30));
+
+           return redirect()->intended();
         } else {
             // If authentication fails, redirect back to the login page with an error message
              return back()->withErrors([

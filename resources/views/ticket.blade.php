@@ -18,6 +18,41 @@
                         <a href="{{ url('cards/' . $lottery->tid) }}" class="btn btn-info">Buy Now</a>
                     </span>
                 </p>
+                <p class="m-b-0">
+                    <span class="float-end">
+                        <button class="btn btn-primary"
+                            onclick="document.getElementById('shareModal').style.display='block'">Share</button>
+
+                        <div id="shareModal">
+                            <span class="close-btn"
+                                onclick="document.getElementById('shareModal').style.display='none'">&times;</span>
+                            <h4>Share via:</h4>
+                            <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(url('cards/' . $lottery->tid)) }}"
+                                target="_blank">
+                                <i class="fab fa-facebook-f"></i> Facebook
+                            </a>
+                            <a href="https://twitter.com/intent/tweet?url={{ urlencode(url('cards/' . $lottery->tid)) }}&text=Check+this+lottery+card!"
+                                target="_blank">
+                                <i class="fab fa-twitter"></i> Twitter
+                            </a>
+                            <a href="https://wa.me/?text=Check+this+lottery+card:+{{ urlencode(url('cards/' . $lottery->tid)) }}"
+                                target="_blank">
+                                <i class="fab fa-whatsapp"></i> WhatsApp
+                            </a>
+                            <a href="https://t.me/share/url?url={{ urlencode(url('cards/' . $lottery->tid)) }}&text=Check+this+lottery+card!"
+                                target="_blank">
+                                <i class="fab fa-telegram"></i> Telegram
+                            </a>
+                            <a
+                                href="mailto:?subject=Check this lottery card&body=Check+this+lottery+card:+{{ urlencode(url('cards/' . $lottery->tid)) }}">
+                                <i class="fas fa-envelope"></i> Email
+                            </a>
+                        </div>
+
+
+                    </span>
+                </p>
+
             </div>
         </div>
     </div>

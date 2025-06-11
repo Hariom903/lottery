@@ -13,7 +13,9 @@
     <meta name="keywords"
         content="Bootstrap admin template, Dashboard UI Kit, Dashboard Template, Backend Panel, react dashboard, angular dashboard" />
     <meta name="author" content="codedthemes" />
+    <meta name="theme-color" content="#ff0000">
 
+    <link rel="shortcut icon" id="favicon" href="{{ asset('images/favicon.svg') }}" type="image/x-icon">
     <!-- [Favicon] icon -->
 
     <!-- map-vector css -->
@@ -37,15 +39,66 @@
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
 
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+
     <!-- jQuery & Owl Carousel JS -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    <style>
+        #shareModal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            color: #333;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            z-index: 1000;
+            width: 300px;
+            text-align: center;
+        }
+
+        #shareModal h4 {
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+
+        #shareModal a {
+            display: block;
+            margin: 8px 0;
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+            transition: color 0.2s;
+        }
+
+        #shareModal a:hover {
+            color: #0056b3;
+        }
+
+        /* Optional: Add a close button */
+        #shareModal .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 18px;
+            cursor: pointer;
+            color: #888;
+        }
+
+        #shareModal .close-btn:hover {
+            color: #333;
+        }
+    </style>
 
 </head>
 <!-- [Head] end -->
 <!-- [Body] Start -->
 
-<body data-pc-header="header-1" data-pc-preset="preset-1"  data-pc-sidebar-theme="light" data-pc-sidebar-caption="true"
+<body data-pc-header="header-1" data-pc-preset="preset-1" data-pc-sidebar-theme="light" data-pc-sidebar-caption="true"
     data-pc-direction="ltr" data-pc-theme="light">
     <!-- [ Pre-loader ] start -->
     <div class="loader-bg">
@@ -54,6 +107,9 @@
         </div>
     </div>
     @include('header')
+
+
+
     <div class="container  ">
         <div class="row mt-5   pt-5" id="lottery-list">
             @include('ticket', ['lotteries' => $lotteries])
@@ -82,7 +138,7 @@
                                 <img src="{{ asset('images/user/avatar-2.jpg') }}" alt="{{ $winner->name }}"
                                     class="winner-avatar  ">
                             </div>
-                       
+
                             <div class="col-8">
                                 <div class="winner-info ms-3">
                                     <h5 class="mb-2 text-primary">{{ $winner->name }}</h5>
@@ -152,7 +208,17 @@
                 });
         });
     </script>
-    <footer id="footer" class="overflow-hidden">
+    @if(!Cookie::get('cookie_accepted'))
+    <div id="cookie-consent" class="shadow rounded"
+        >This site uses cookies to improve your experience. By continuing, you accept our cookie policy.</p>
+        <form method="POST" action="">
+            @csrf
+            <button type="submit" class="btn btn-light text-primary btn-sm px-4">Accept Cookies</button>
+        </form>
+    </div>
+    @endif
+
+    <footer id="footer" class=" overflow-hidden">
         <hr>
         <div class="container">
             <div class="row">
@@ -192,12 +258,13 @@
             </div>
         </div>
         <hr>
-    </footer>
-    <footer class="pc-footer">
-        <div class="footer-wrapper container-fluid">
+
+
+        <div class=" container-fluid">
             <div class="row">
                 <div class="col-sm-6 my-1">
-                    <p class="m-0">Gradient Able &#9829; crafted by Team <a href="http://hariom.ct.ws" target="_blank">Hariom
+                    <p class="m-0">Gradient Able &#9829; crafted by Team <a href="http://hariom.ct.ws"
+                            target="_blank">Hariom
                             dangi </a></p>
                 </div>
                 <div class="col-sm-6 ms-auto my-1">

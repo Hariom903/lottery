@@ -17,6 +17,7 @@ class AuthUser
     public function handle(Request $request, Closure $next): Response
     {
         if (!Auth::check() || Auth::user()->role !== 'user'  ) {
+            session(['url.intended' => url()->current()]);
             return redirect()->route('user.login');
         }
 
