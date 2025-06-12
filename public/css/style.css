@@ -21518,7 +21518,17 @@ select.form-control[data-multiselectsplitter-firstselect-selector], select.form-
     z-index: -1; /* Send it behind content */
   }
 
-
+.raffle-ticket {
+    background: #f8faff;
+    border-left: 6px dashed #0d6efd;
+    border-radius: 1.2rem;
+    position: relative;
+    overflow: hidden;
+    transition: box-shadow 0.2s;
+}
+.raffle-ticket:hover {
+    box-shadow: 0 8px 32px rgba(13,110,253,0.15);
+}
 
 
 /**  =====================

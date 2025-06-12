@@ -1,0 +1,23 @@
+<!-- filepath: public/images/hero-lottery.svg -->
+<svg width="320" height="260" viewBox="0 0 320 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="320" height="260" rx="40" fill="#ffe600"/>
+  <ellipse cx="160" cy="220" rx="120" ry="30" fill="#f4643c" opacity="0.15"/>
+  <g>
+    <circle cx="80" cy="120" r="38" fill="#0d6efd"/>
+    <rect x="60" y="110" width="40" height="20" rx="6" fill="#fff"/>
+    <text x="80" y="125" text-anchor="middle" font-size="14" font-family="Poppins, Arial, sans-serif" fill="#0d6efd" font-weight="bold">WIN</text>
+  </g>
+  <g>
+    <rect x="180" y="60" width="90" height="60" rx="12" fill="#fff"/>
+    <text x="225" y="95" text-anchor="middle" font-size="22" font-family="Poppins, Arial, sans-serif" fill="#19b900" font-weight="bold">$100,000</text>
+    <text x="225" y="115" text-anchor="middle" font-size="12" font-family="Poppins, Arial, sans-serif" fill="#888">Grand Prize</text>
+  </g>
+  <g>
+    <ellipse cx="250" cy="180" rx="24" ry="24" fill="#0d6efd"/>
+    <text x="250" y="187" text-anchor="middle" font-size="18" font-family="Poppins, Arial, sans-serif" fill="#fff" font-weight="bold">🎉</text>
+  </g>
+  <g>
+    <ellipse cx="60" cy="200" rx="18" ry="18" fill="#f4643c"/>
+    <text x="60" y="207" text-anchor="middle" font-size="14" font-family="Poppins, Arial, sans-serif" fill="#fff" font-weight="bold">⭐</text>
+  </g>
+</svg>

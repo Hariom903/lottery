@@ -33,6 +33,7 @@
     <link rel="stylesheet" href="{{ asset('fonts/material.css') }}" />
     <!-- [Template CSS Files] -->
     <link rel="stylesheet" href="{{ asset('css/style.css') }}" id="main-style-link" />
+    <link rel="stylesheet" href="{{ asset('css/mystyle.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style-preset.css') }}" />
     <!-- Owl Carousel CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
@@ -44,55 +45,6 @@
     <!-- jQuery & Owl Carousel JS -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
-    <style>
-        #shareModal {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: white;
-            color: #333;
-            border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            padding: 20px;
-            z-index: 1000;
-            width: 300px;
-            text-align: center;
-        }
-
-        #shareModal h4 {
-            margin-top: 0;
-            margin-bottom: 15px;
-        }
-
-        #shareModal a {
-            display: block;
-            margin: 8px 0;
-            text-decoration: none;
-            color: #007bff;
-            font-weight: bold;
-            transition: color 0.2s;
-        }
-
-        #shareModal a:hover {
-            color: #0056b3;
-        }
-
-        /* Optional: Add a close button */
-        #shareModal .close-btn {
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            font-size: 18px;
-            cursor: pointer;
-            color: #888;
-        }
-
-        #shareModal .close-btn:hover {
-            color: #333;
-        }
-    </style>
 
 </head>
 <!-- [Head] end -->
@@ -108,120 +60,260 @@
     </div>
     @include('header')
 
+    <!-- [ Pre-loader ] End -->
+
+    <div class="pc-container m-0">
 
 
-    <div class="container  ">
-        <div class="row mt-5   pt-5" id="lottery-list">
-            @include('ticket', ['lotteries' => $lotteries])
-        </div>
+        <!-- Hero Section Start -->
+        <section class="hero-section py-5 bg-primary ">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-7 text-white">
+                        <h1 class="display-4 fw-bold mb-3" style="color: #ffe600;">
+                            Welcome to the Lottery System
+                        </h1>
+                        <p class="lead mb-4" style="color: #fff;">
+                            Participate in exciting lotteries and stand a chance to win amazing prizes!<br>
+                            Secure, fair, and fun—join millions of winners worldwide.
+                        </p>
+                        <a href="#lottery-list" class="btn btn-light text-primary btn-lg px-4 shadow-sm fw-semibold">
+                            View Lotteries
+                        </a>
+                    </div>
+                    <div class="col-lg-5 text-center mt-4 mt-lg-0">
+                        <img src="{{ asset('images/hero-lottery.svg') }}" alt="Lottery Hero" class="img-fluid"
+                            style="max-height: 260px;">
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Hero Section End -->
 
-        <div class="row mb-2 ">
-            <div class="col-12 d-flex justify-content-end  mt-3">
-                @if ($lotteries->hasMorePages())
-                    <button id="load-more" class="btn btn-primary" data-next-page="{{ $lotteries->currentPage() + 1 }}">
-                        See More
-                    </button>
-                @endif
+        <div class='container '>
+            {{-- <h1 class="text-center mt-5">Welcome to the Lottery System</h1>
+            <p class="text-center">Participate in exciting lotteries and stand a chance to win amazing prizes!</p> --}}
+            <div id="carouselExampleSlidesOnly" class="carousel slide " data-bs-ride="carousel">
+                <div class="carousel-inner rounded-5">
+                    <div class="carousel-item active">
+                        <img src="{{ asset('images/caravsal.png') }}"height="350px"
+                            class="d-block w-100" alt="...">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="{{ asset('images/ChatGPT Image Jun 11, 2025, 06_16_15 AM.png') }}"height="350px"
+                            class="d-block w-100" alt="...">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="{{ asset('images/ChatGPT Image Jun 11, 2025, 06_16_15 AM.png') }}"height="350px"
+                            class="d-block w-100" alt="...">
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="container">
-        <div class="owl-carousel owl-theme">
-            @foreach ($winneruser as $winner)
-                <div class="item">
-                    {{-- title winner  --}}
+        <div class="container">
+            <div class="pc-content">
+                <div class="row mt-5 pt-5" id="lottery-list">
+                         <h2 class="text-center text-primary mb-4">Our Lotteries</h2>
+                    @include('ticket', ['lotteries' => $lotteries])
+                </div>
 
-                    <div class="winner-card shadow-sm p-3 mb-4 bg-white rounded d-flex align-items-center">
-                        <div class=row>
-                            <div class="col-4">
-                                <img src="{{ asset('images/user/avatar-2.jpg') }}" alt="{{ $winner->name }}"
-                                    class="winner-avatar  ">
-                            </div>
+                <div class="row mb-2 ">
+                    <div class="col-12 d-flex justify-content-end  mt-3">
+                        @if ($lotteries->hasMorePages())
+                            <button id="load-more" class="btn btn-primary"
+                                data-next-page="{{ $lotteries->currentPage() + 1 }}">
+                                See More
+                            </button>
+                        @endif
+                    </div>
+                </div>
+            </div>
+            <div class="payout-banner my-4">
+                <div class="payout-text">
+                    <div class="payout-title">We paid out in prizes:</div>
+                    <div class="payout-sub">Over 26,221,770 winners worldwide!</div>
+                    <div class="payout-amount">$ 188,065,511</div>
+                </div>
+                <img src="{{ asset('images/payed.svg') }}" class="payout-img">
+            </div>
+        </div>
 
-                            <div class="col-8">
-                                <div class="winner-info ms-3">
-                                    <h5 class="mb-2 text-primary">{{ $winner->name }}</h5>
-                                    <p class="mb-0">{{ $winner->email }}</p>
+
+
+        <div class ="container">
+            {{-- Our winners --}}
+            <h2 class="text-center text-primary mb-4">Our Winners</h2>
+            <div class="owl-carousel owl-theme">
+                @foreach ($winneruser as $winner)
+                    <div class="item">
+                        {{-- title winner  --}}
+
+                        <div class="winner-card shadow-sm p-3 mb-4 bg-white rounded-5 d-flex align-items-center">
+                            <div class=row>
+                                <div class="col-4">
+                                    <img src="{{ asset('images/user/avatar-2.jpg') }}" alt="{{ $winner->name }}"
+                                        class="winner-avatar  ">
+                                </div>
+
+                                <div class="col-8">
+                                    <div class="winner-info ms-3">
+                                        <h5 class="mb-2 text-primary">{{ $winner->name }}</h5>
+                                        <p class="mb-0">{{ $winner->email }}</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            @endforeach
+                @endforeach
+            </div>
         </div>
+
+
+
+        {{-- contect section  --}}
+        {{-- contect us --}}
+<section style="margin-bottom: 150px" >
+        <div class="container mb-3 border rounded shadow p-4 " id="contact-us">
+            <h3 class="text-center"> We are here to help! </h3>
+            <p class="text-center"> We do our best to make your playing experience secure, enjoyable, and
+                comfortable. Whether you have questions, concerns, or queries, reach the Lotto Agent customer
+                support team. Around the clock, seven days a week.</p>
+
+            <div class="container  mb-2 pb-3 col-md-9 border shadow rounded ">
+                @if (session('success'))
+                    <div class="alert alert-success ">
+                        <strong>Success!</strong> {{ session('success') }}
+                    </div>
+                @endif
+                <form action="{{ route('contact.us.store') }}" method="POST" class="mt-4">
+                    @csrf
+                    <div class="mb-3">
+                        <h5 class="text-start">Leave us a message</h5>
+                        <p class="text-start">Drop us a line and one of our dedicated customer support agents
+                            will
+                            get back to you within 24 hours.</p>
+                    </div>
+                    <div class="mb-3">
+                        <div class="row g-3"114>
+                            <div class="col-md-6">
+                                <label for="name" class="form-label">Your Name</label>
+                                <input type="text" class="form-control" name="name" id="name" required>
+                                @error('name')
+                                    <span class="red-error">*{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="col-md-6">
+                                <label for="email" class="form-label">Email address</label>
+                                <input type="email" class="form-control" name="email" id="email" required>
+                                @error('email')
+                                    <span class="red-error">*{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="Topic" class="form-label">Topic</label>
+                                <input type="text" class="form-control" name="Topic" id="Topic">
+                                @error('Topic')
+                                    <span class="red-error">*{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="col-md-6">
+                                <label for="subTopic" class="form-label">Sub Topic</label>
+                                <input type="text" class="form-control" name="subTopic" id="subTopic">
+                                @error('subTopic')
+                                    <span class="red-error">*{{ $message }}</span>
+                                @enderror
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="mb-3 ">
+                        <label for="message" class="form-label">Message</label>
+                        <textarea class="form-control" name="message" id="message" rows="4"></textarea>
+                        @error('message')
+                            <span class="red-error">*{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                </form>
+            </div>
+        </div>
+</section>
     </div>
 
 
-    <script>
-        $(document).ready(function() {
-            $('.owl-carousel').owlCarousel({
-                loop: true,
-                margin: 20,
-                nav: true,
-                dots: true,
-                autoplay: true,
-                autoplayTimeout: 4000,
-                responsive: {
-                    0: {
-                        items: 1
-                    },
-                    600: {
-                        items: 2
-                    },
-                    768: {
-                        items: 3
-                    },
-
-                    1000: {
-                        items: 3
-                    }
-                }
-            });
-        });
-    </script>
 
 
-    <script>
-        document.getElementById('load-more')?.addEventListener('click', function() {
-            let button = this;
-            let nextPage = button.getAttribute('data-next-page');
 
-            fetch(`?page=${nextPage}`, {
-                    headers: {
-                        'X-Requested-With': 'XMLHttpRequest' // ✅ correc
-                    }
-                })
-                .then(response => response.text())
-                .then(html => {
-                    document.getElementById('lottery-list').insertAdjacentHTML('beforeend', html);
-
-                    const totalPages = {{ $lotteries->lastPage() }};
-                    if (nextPage >= totalPages) {
-                        button.style.display = 'none';
-                    } else {
-                        button.setAttribute('data-next-page', parseInt(nextPage) + 1);
-                    }
-                })
-                .catch(error => {
-                    console.error('Error loading more lotteries:', error);
-                });
-        });
-    </script>
-    @if(!Cookie::get('cookie_accepted'))
-    <div id="cookie-consent" class="shadow rounded"
-        >This site uses cookies to improve your experience. By continuing, you accept our cookie policy.</p>
-        <form method="POST" action="">
-            @csrf
-            <button type="submit" class="btn btn-light text-primary btn-sm px-4">Accept Cookies</button>
-        </form>
-    </div>
-    @endif
-
-     @include('footer')
 </body>
+<footer>
+    <div class="container-fluid mt-5 footer-container">
+        <!-- [Footer] start -->
+
+        @include('footer')
+    </div>
+</footer>
 <!-- Bootstrap Bundle with Popper -->
 
+<script>
+    $(document).ready(function() {
+        $('.owl-carousel').owlCarousel({
+            loop: true,
+            margin: 20,
+            nav: true,
+            dots: true,
+            autoplay: true,
+            autoplayTimeout: 4000,
+            responsive: {
+                0: {
+                    items: 1
+                },
+                600: {
+                    items: 1
+                },
+                768: {
+                    items: 3
+                },
+
+                1000: {
+                    items: 3
+                }
+            }
+        });
+    });
+</script>
+
+<script>
+    document.getElementById('load-more')?.addEventListener('click', function() {
+        let button = this;
+        let nextPage = button.getAttribute('data-next-page');
+
+        fetch(`?page=${nextPage}`, {
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest' // ✅ correc
+                }
+            })
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('lottery-list').insertAdjacentHTML('beforeend', html);
+
+                const totalPages = {{ $lotteries->lastPage() }};
+                if (nextPage >= totalPages) {
+                    button.style.display = 'none';
+                } else {
+                    button.setAttribute('data-next-page', parseInt(nextPage) + 1);
+                }
+            })
+            .catch(error => {
+                console.error('Error loading more lotteries:', error);
+            });
+    });
+</script>
 <script src="{{ asset('js/plugins/popper.min.js') }}"></script>
 <script src="{{ asset('js/plugins/simplebar.min.js') }}"></script>
 <script src="{{ asset('js/plugins/bootstrap.min.js') }}"></script>

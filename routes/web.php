@@ -3,9 +3,11 @@
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\admin\PriceaddController;
 use App\Http\Controllers\AuthenticationController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\handle;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\Policies\PoliciesController;
 use App\Http\Controllers\SingupController;
 use App\Http\Controllers\StripePaymentController;
 use App\Http\Controllers\TicketConttroler;
@@ -71,3 +73,18 @@ Route::middleware(['Authuser'])->group(function () {
 });
 
 Route::get('/ramram',[handle::class,'handlePayment']);
+//contct us
+Route::get('/contact-us',[ContactController::class,'contactUs'])->name('contact.us');
+Route::post('/contact-us',[ContactController::class,'contactSubmit'])->name('contact.us.store');
+
+//  policies routets
+Route::get('/terms-of-use',[PoliciesController::class,'termsOfuse'])->name('terms.of.use');
+Route::get('/privacy-notice',[PoliciesController::class,'privacyNotice'])->name('privacy.notice');
+// Cookie Policy
+Route::get('/cookie-policy',[PoliciesController::class,'cookiePolicy'])->name('cookie.policy');
+
+// guset
+
+// Route::get('/',function () {
+//     return view('guest.index');
+// })->name('gust.home');

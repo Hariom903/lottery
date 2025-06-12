@@ -1,3 +1,5 @@
+@extends('layout.guest')
+@section('content')
 <div class="container my-5">
     <h2 class="mb-4 text-primary">Privacy Notice</h2>
     <p>
@@ -16,3 +18,4 @@
 </div><div>
     <!-- No surplus words or unnecessary actions. - Marcus Aurelius -->
 </div>
+@endsection

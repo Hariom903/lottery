@@ -1,3 +1,5 @@
+@extends('layout.guest')
+@section('content')
 <div class="container my-5">
     <h2 class="mb-4 text-primary">Terms of Use</h2>
     <p>
@@ -17,3 +19,4 @@
 </div><div>
     <!-- If you do not have a consistent goal in life, you can not live it in a consistent way. - Marcus Aurelius -->
 </div>
+@endsection

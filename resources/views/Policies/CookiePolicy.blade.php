@@ -1,3 +1,5 @@
+@extends('layout.guest')
+@section('content')
 <div class="container my-5">
     <h2 class="mb-4 text-primary">Cookie Policy</h2>
     <p>
@@ -15,3 +17,5 @@
 </div><div>
     <!-- I begin to speak only when I am certain what I will say is not better left unsaid. - Cato the Younger -->
 </div>
+
+@endsection

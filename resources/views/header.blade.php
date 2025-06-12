@@ -35,6 +35,9 @@
                   <li class="pc-h-item">
                       <a href="#" class="pc-head-link">About</a>
                   </li>
+                  <li class="pc-h-item">
+                      <a href="#contact-us" class="pc-head-link">Contect us</a>
+                  </li>
                   @if (!Auth::check())
                       <li class="pc-h-item">
                           <i class="ph ph-star me-1"> </i>
@@ -80,7 +83,7 @@
                                                       </a>
                                                       <a href="{{ route('logout') }}" class="dropdown-item">
                                                           <span class="d-flex align-items-center">
-                                                              <i class="ph ph-gear-six"></i>
+                                                              <i class="ph ph-sign-out"></i>
                                                               <span>Logout </span>
                                                           </span>
                                                       </a>

@@ -1,0 +1,23 @@
+<!-- filepath: public/images/payout-header.svg -->
+<svg width="584" height="270" viewBox="0 0 584 270" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="584" height="270" rx="24" fill="#0d6efd"/>
+  <!-- Confetti -->
+  <rect x="60" y="40" width="6" height="18" rx="3" fill="#ffe600" transform="rotate(-20 60 40)"/>
+  <rect x="520" y="60" width="6" height="18" rx="3" fill="#ffe600" transform="rotate(30 520 60)"/>
+  <rect x="120" y="80" width="6" height="18" rx="3" fill="#fff" transform="rotate(10 120 80)"/>
+  <rect x="480" y="100" width="6" height="18" rx="3" fill="#fff" transform="rotate(-15 480 100)"/>
+  <!-- Left character -->
+  <ellipse cx="130" cy="200" rx="38" ry="38" fill="#fff"/>
+  <rect x="110" y="170" width="40" height="20" rx="6" fill="#0d6efd"/>
+  <rect x="120" y="190" width="12" height="40" rx="6" fill="#0d6efd"/>
+  <rect x="138" y="190" width="12" height="40" rx="6" fill="#ffe600"/>
+  <!-- Right character -->
+  <ellipse cx="470" cy="200" rx="38" ry="38" fill="#fff"/>
+  <rect x="450" y="170" width="40" height="20" rx="6" fill="#0d6efd"/>
+  <rect x="460" y="190" width="12" height="40" rx="6" fill="#ffe600"/>
+  <rect x="478" y="190" width="12" height="40" rx="6" fill="#0d6efd"/>
+  <!-- Cheque -->
+  <rect x="180" y="90" width="224" height="80" rx="12" fill="#fff" stroke="#ffe600" stroke-width="4"/>
+  <text x="292" y="140" text-anchor="middle" font-size="32" font-family="Poppins, Arial, sans-serif" fill="#0d6efd" font-weight="bold">$188,065,511</text>
+  <text x="292" y="165" text-anchor="middle" font-size="16" font-family="Poppins, Arial, sans-serif" fill="#0d6efd">WINNER</text>
+</svg>
