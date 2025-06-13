@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('logs', function (Blueprint $table) {
             $table->id();
+            $table->string('level');         // Log level: error, info, warning etc.
+            $table->text('message');         // Log message
+            $table->text('context')->nullable(); // Context (optional JSON)
             $table->timestamps();
         });
     }

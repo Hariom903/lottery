@@ -22,6 +22,11 @@ class RazorpayController extends Controller
         ];
         $order = $api->order->create($orderData);
         Log::info('Razorpay Order Data:', $order->toArray());
+        Log::channel('database')->info('Razorpay Order Created:', [
+            'order_id' => $order['id'],
+            'amount' => $order['amount'],
+            'currency' => $order['currency']
+        ]);
         // Redirect to Razorpay payment page
         //save pyment in data base
          $payment  = new Payment();

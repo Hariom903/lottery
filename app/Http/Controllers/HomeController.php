@@ -6,6 +6,7 @@ use App\Models\admin\Lottery;
 use App\Models\User;
 use App\Models\Winerprice;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class HomeController extends Controller
 {
@@ -14,7 +15,7 @@ class HomeController extends Controller
         //          $lotteries = Lottery::paginate(6); // e.g., 6 per page
         // // $lotteries = Lottery::all();
 
-
+       Log::channel('database')->info(' User Login page  ', ['ip'=> $request->ip()]);
 
 
        $lotteries = Lottery::where('status','open')->paginate(6);
@@ -38,7 +39,7 @@ class HomeController extends Controller
 
     // $winneruser = User::whereIn('id', $winnerLottery->pluck('winner_id'))->get(); // fetch all winner users in one query
 
- 
+
     return view('index', compact('lotteries','winneruser'));
 }
 }

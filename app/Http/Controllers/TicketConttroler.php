@@ -45,6 +45,12 @@ class TicketConttroler extends Controller
             $ticket->save();
         }
         Log::info('Tickets saved successfully', ['lottery_id' => $request->lottery_id, 'quantity' => $quantity]);
+        Log::channel('database')->info('Tickets purchased', [
+            'user_id' => Auth::user()->id,
+            'lottery_id' => $request->lottery_id,
+            'quantity' => $quantity,
+            'ticket_numbers' => $ticket->ticket_number
+        ]);
         return redirect()->route('mytickets')->with('success', 'Tickets purchased successfully!');
 
         }
