@@ -15,9 +15,12 @@ class UserController extends Controller
         ->where('user_id', Auth::id())
         ->get();
 
-  
+
  // Make sure to inspect deeply
 
     return view('myticket', compact('tickets'));
 }
+
+    
+
 }

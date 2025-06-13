@@ -3,7 +3,7 @@
 <!-- [Head] start -->
 
 <head>
-    <title> My Ticketes </title>
+    <title> my tickes </title>
     <!-- [Meta] -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui" />
@@ -13,7 +13,9 @@
     <meta name="keywords"
         content="Bootstrap admin template, Dashboard UI Kit, Dashboard Template, Backend Panel, react dashboard, angular dashboard" />
     <meta name="author" content="codedthemes" />
+    <meta name="theme-color" content="#ff0000">
 
+    <link rel="shortcut icon" id="favicon" href="{{ asset('images/favicon.svg') }}" type="image/x-icon">
     <!-- [Favicon] icon -->
 
     <!-- map-vector css -->
@@ -29,10 +31,20 @@
     <link rel="stylesheet" href="{{ asset('fonts/fontawesome.css') }}" />
     <!-- [Material Icons] https://fonts.google.com/icons -->
     <link rel="stylesheet" href="{{ asset('fonts/material.css') }}" />
+    <!-- [Bootstrap CSS] -->
+    <link rel="stylesheet" href="{{ asset('css/plugins/bootstrap.min.css') }}" />
+
     <!-- [Template CSS Files] -->
     <link rel="stylesheet" href="{{ asset('css/style.css') }}" id="main-style-link" />
+    <link rel="stylesheet" href="{{ asset('css/mystyle.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style-preset.css') }}" />
-
+    <!-- Owl Carousel CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+    <!-- jQuery & Owl Carousel JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
 </head>
 <!-- [Head] end -->
 <!-- [Body] Start -->
@@ -46,31 +58,53 @@
         </div>
     </div>
     @include('header')
-    <div class="container mb-5 mt-5">
-        <div class="row mt-5 pt-5 ">
-            @foreach ($tickets as $ticket)
-                <div class="col-md-6 col-xl-3">
-                    <div class="card bg-grd-success order-card">
-                        <div class="card-body">
-                            <h6 class="text-white">{{ $ticket->lottery->title }}</h6>
-                            <h2 class="text-start h4 text-white"><i class="ph ph-ticket"> </i> <span>Ticket
-                                    number :{{ $ticket->ticket_number }}</span>
 
-                                <h2 class="text-start h5 text-white">
-                                    <span>Open Date:
-                                        {{ \Carbon\Carbon::parse($ticket->lottery->draw_datetime)->format('d M Y') }}</span>
-                                </h2>
+    <div class="pc-container  m-0 p-0  ">
+        <div class="pc-contect pt-1 ">
+            <div class="container">
+                <div class=" card  mb-0">
+                    <div class="card-body  pt-3 pb-0 ">
+                        <div class="row align-items-center">
 
-
+                            <div class="col-md-12 ">
+                                <ul class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="javascript: void(0)"><i
+                                                class="ph ph-house"></i></a></li>
+                                    <li class="breadcrumb-item"><a href="javascript: void(0)"> Home </a></li>
+                                    <li class="breadcrumb-item" aria-current="page"> My Tickets </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
-            @endforeach
+            </div>
         </div>
+
+        <div class="container ">
+            <div class="row pt-4">
+                @foreach ($tickets as $ticket)
+                    <div class="col-md-6 col-xl-3">
+                        <div class="card bg-grd-success order-card">
+                            <div class="card-body">
+                                <h6 class="text-white">{{ $ticket->lottery->title }}</h6>
+                                <h2 class="text-start h4 text-white"><i class="ph ph-ticket"> </i> <span>Ticket
+                                        number :{{ $ticket->ticket_number }}</span>
+
+                                    <h2 class="text-start h5 text-white">
+                                        <span>Open Date:
+                                            {{ \Carbon\Carbon::parse($ticket->lottery->draw_datetime)->format('d M Y') }}</span>
+                                    </h2>
+
+
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+
     </div>
-
-
-   @include('footer')
+        @include('footer')
 </body>
 <!-- Bootstrap Bundle with Popper -->
 

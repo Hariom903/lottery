@@ -6,8 +6,11 @@ use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\handle;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LotteriesController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\Policies\PoliciesController;
+use App\Http\Controllers\RazorpayController;
 use App\Http\Controllers\SingupController;
 use App\Http\Controllers\StripePaymentController;
 use App\Http\Controllers\TicketConttroler;
@@ -59,17 +62,19 @@ Route::middleware(['Authuser'])->group(function () {
     Route::post('/cards',[TicketConttroler::class,'store'])->name('cards.store');
     Route::get('/cards/{tid}',[TicketConttroler::class,'index']);
     Route::get('/mytickets',[UserController::class,'myTickets'])->name('mytickets');
+    Route::post('/change-password',[PasswordController::class,'changePassword'])->name('change.password');
 
 
 
     Route::post('/notifications/clear',[NotificationController::class ,'Delete'])->name('notifications.clear');
      Route::post('/notifications/mark-all-read',[NotificationController::class,'MarkAsRead'])->name('notifications.markAllRead');
 
+     Route::get('/lottery',[LotteriesController::class,'index'])->name('lotteries.index');
 
-   Route::controller(StripePaymentController::class)->group(function(){
+     Route::post('payment/success', [RazorpayController::class, 'payment'])->name('payment.success');
 
-    Route::post('stripe', 'stripePost')->name('stripe.post');
-});
+
+
 });
 
 Route::get('/ramram',[handle::class,'handlePayment']);
@@ -83,8 +88,9 @@ Route::get('/privacy-notice',[PoliciesController::class,'privacyNotice'])->name(
 // Cookie Policy
 Route::get('/cookie-policy',[PoliciesController::class,'cookiePolicy'])->name('cookie.policy');
 
-// guset
 
-// Route::get('/',function () {
-//     return view('guest.index');
-// })->name('gust.home');
+
+
+
+
+

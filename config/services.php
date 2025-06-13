@@ -44,6 +44,10 @@ return [
     'client_secret' => env('GOOGLE_CLIENT_SECRET'),
    'redirect' => env('GOOGLE_REDIRECT_URI'),
   ],
+  'Razorpay' => [
+    'key' => env('RAZORPAY_API_KEY'),
+    'key_secret' => env('RAZORPAY_API_SECRET'),
+  ],
 
 
 

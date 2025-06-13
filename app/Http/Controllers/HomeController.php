@@ -38,7 +38,7 @@ class HomeController extends Controller
 
     // $winneruser = User::whereIn('id', $winnerLottery->pluck('winner_id'))->get(); // fetch all winner users in one query
 
-
+ 
     return view('index', compact('lotteries','winneruser'));
 }
 }

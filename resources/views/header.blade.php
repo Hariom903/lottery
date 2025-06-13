@@ -36,7 +36,7 @@
                       <a href="#" class="pc-head-link">About</a>
                   </li>
                   <li class="pc-h-item">
-                      <a href="#contact-us" class="pc-head-link">Contect us</a>
+                      <a href="{{ url('/' . '#contact-us') }}" class="pc-head-link">Contect us</a>
                   </li>
                   @if (!Auth::check())
                       <li class="pc-h-item">
@@ -48,15 +48,15 @@
                           <a href="{{ route('mytickets') }}" class="pc-head-link">mytickets</a>
                       </li>
                       <li class='pc-h-item'>
-                         @include('notifications')
+                          @include('notifications')
                       </li>
 
                       <div class="ms-auto">
                           <ul class="list-unstyled">
                               <li class="dropdown pc-h-item header-user-profile">
                                   <a class="pc-head-link dropdown-toggle arrow-none me-0" data-bs-toggle="dropdown"
-                                      href="#" role="button" aria-haspopup="false"
-                                      data-bs-auto-close="outside" aria-expanded="false">
+                                      href="#" role="button" aria-haspopup="false" data-bs-auto-close="outside"
+                                      aria-expanded="false">
                                       <img src="{{ asset('images/user/avatar-2.jpg') }}" alt="user-image"
                                           class="user-avtar" />
                                   </a>
@@ -74,13 +74,15 @@
                                                                       class="me-1">{{ Auth::user()->name }}</span>
                                                               </span>
                                                           </span>
-                                                        </a>
-                                                      <a href="#" class="dropdown-item">
+                                                      </a>
+                                                      <button type="button" class="dropdown-item"
+                                                          data-bs-toggle="modal" data-bs-target="#changepassword">
                                                           <span class="d-flex align-items-center">
                                                               <i class="ph ph-gear-six"></i>
-                                                              <span>Settings</span>
+                                                              <span>Change password</span>
                                                           </span>
-                                                      </a>
+                                                      </button>
+
                                                       <a href="{{ route('logout') }}" class="dropdown-item">
                                                           <span class="d-flex align-items-center">
                                                               <i class="ph ph-sign-out"></i>
@@ -111,3 +113,4 @@
 
       </div>
   </header>
+  @include('changepassword')

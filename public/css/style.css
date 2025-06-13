@@ -16639,6 +16639,7 @@ pre[class*=language-] > code {
 @media (max-width: 575.98px) {
   .pc-header .dropdown-user-profile {
     min-width: 100%;
+    
   }
 }
 .pc-header .dropdown-notification {

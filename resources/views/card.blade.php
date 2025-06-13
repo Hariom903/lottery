@@ -32,7 +32,8 @@
     <!-- [Template CSS Files] -->
     <link rel="stylesheet" href="{{ asset('css/style.css') }}" id="main-style-link" />
     <link rel="stylesheet" href="{{ asset('css/style-preset.css') }}" />
-
+    {{-- jQuery library --> --}}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <!-- [Head] end -->
 <!-- [Body] Start -->
@@ -52,93 +53,115 @@
     <br />
     <br />
     <br />
-    <div class="pc-content mt-5  ">
-        <div class="container mt-5">
+
+    <div class="pc-content   ">
+
+        <div class="container">
+            <div class=" card  mb-0">
+                <div class="card-body  pt-3 pb-0 ">
+                    <div class="row align-items-center">
+
+                        <div class="col-md-12 ">
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="{{ route('home') }}"><i
+                                            class="ph ph-house"></i></a></li>
+                                <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+                                <li class="breadcrumb-item" aria-current="page"><a href="{{ route('lotteries.index') }}">lotteries </a> </li>
+                                <li class="breadcrumb-item" aria-current="page"> Buy a Lottery </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
             @session('success')
                 <div class="alert alert-success" role="alert">
                     {{ $value }}
                 </div>
             @endsession
-            <div class="card">
-                <div class="card-header bg-primary text-white">
-                    <h4>{{ $ticket->title }}</h4>
+            <div class="card  mt-1 ">
+                <div class="card-header  text-white rounded-top-4" >
+                    <h4 class="mb-0">{{ $ticket->title }}</h4>
                 </div>
 
-                <div class="row ">
-                    <div class="col-md-6">
-                        <div class="card-body">
-                            <p><strong>Description:</strong> {{ $ticket->description }}</p>
-                            <p><strong>Ticket Price:</strong> {{ $ticket->ticket_price }}</p>
-                            <p><strong>Total Tickets:</strong> {{ $ticket->total_tickets }}</p>
-                            <p><strong>Sold Tickets:</strong> {{ $ticket->sold_tickets }}</p>
+                <div class="row g-0">
+                    {{-- Left Side: Ticket Details & Form --}}
+                    <div class="col-md-6  p-4">
+                        <div class="containeer rounded shadow p-4 ">
+                            <div class="mb-3">
+                                <p><strong>Description:</strong> {{ $ticket->description }}</p>
+                                <p><strong>Ticket Price:</strong> ₹{{ $ticket->ticket_price }}</p>
+                                <p><strong>Total Tickets:</strong> {{ $ticket->total_tickets }}</p>
+                                <p><strong>Sold Tickets:</strong> {{ $ticket->sold_tickets }}</p>
+                            </div>
 
-                            <form action="{{ route('stripe.post') }}" method="POST" id="checkout-form">
+                            <form action="{{ route('cards.store') }}" method="POST" id="checkout-form">
                                 @csrf
-
                                 <input type="hidden" name="lottery_id" value="{{ $ticket->id }}">
-                                <input type="hidden" name="user_id" value="{{ Auth::id() }}">
-                                <input type="hidden" name="price" value="{{ $ticket->ticket_price }}">
 
-                                <div class="form-group">
-                                    <label for="quantity">Number of Tickets to Buy:</label>
-                                    <input type="number" name="quantity" min="1"
+                                <div class="form-group mb-3">
+                                    <label for="quantity" class="form-label">Number of Tickets to Buy:</label>
+                                    <input type="number" id="quantity" name="quantity" min="1"
                                         max="{{ $ticket->total_tickets - $ticket->sold_tickets }}" class="form-control"
-                                        required>
+                                        value="1" required>
                                 </div>
 
-                                <label>Name on Card</label>
-                                <input type="text" name="name" class="form-control" placeholder="Cardholder Name">
-
-                                <div id="card-element" class="form-control my-3"></div>
-                                <input type="hidden" name="payment_method" id="payment-method">
-
-                                <button id="pay-btn" type="button" class="btn btn-primary w-100 mt-3">
-                                    Pay ${{ $ticket->ticket_price }}
+                                <button id="paybtn" type="submit" class="btn btn-success w-100">
+                                    Pay ₹{{ $ticket->ticket_price }}
                                 </button>
                             </form>
                         </div>
                     </div>
 
-                    <div class="col-md-6 pt-4 col-xl-3">
-                        @foreach ( $ticket->prizes as $price)
-                            <div class="card bg-grd-danger order-card">
-                                <div class="card-body">
-                                    <div class="row">
-                                    <div class="col-9">
-                                    <h6 class="text-white">{{ $price->prize_name }}</h6>
-                                    <h2 class="text-start  text-white">
-                                        <i class="feather icon-award float-start"></i><span class="h5 text-white">Winner
-                                            Position {{ $price->winner_position }} </span>
-                                    </h2>
-                                    </div>
-                                    <div class="col-3">
-                                     {{-- img  --}}
-                                     <img src="{{ asset('images/'. $price->img_name) }}" class="img-fluid" alt="winner">
-                                    </div>
+                    {{-- Right Side: Winner Prizes --}}
+                    <div class="col-md-6 p-4">
+                        <h5 class="mb-3 fw-bold text-dark">Winner Prizes</h5>
+
+                        <div class="row g-3">
+                            @foreach ($ticket->prizes as $price)
+                                <div class="col-sm-12  col-md-6 mb-4">
+                                    <div class="card bg-danger h-100 border-0 shadow-lg rounded-4 bg-gradient position-relative overflow-hidden"
+                                        style="background: linear-gradient(135deg, #08d108 0%, #dd2476 100%);">
+                                        <div class="card-body p-4 d-flex flex-column justify-content-between">
+                                            <div class="d-flex align-items-center mb-3">
+                                                <div class="me-3 flex-shrink-0">
+                                                    <div class="bg-white rounded-circle d-flex align-items-center justify-content-center shadow"
+                                                        style="width: 64px; height: 64px;">
+                                                        <img src="{{ asset('images/' . $price->img_name) }}"
+                                                            class="img-fluid rounded-circle" alt="prize"
+                                                            style="width: 56px; height: 56px; object-fit: cover;">
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <h5 class="fw-bold text-white mb-1 text-uppercase">
+                                                        {{ $price->prize_name }}</h5>
+                                                    <span class="badge bg-warning text-dark fs-6 px-3 py-1 shadow-sm">
+                                                        <i class="feather icon-award me-1"></i>
+                                                        Position {{ $price->winner_position }}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="mt-auto">
+                                                <span class="text-white-50 small">Congratulations to  winner!</span>
+                                            </div>
+                                        </div>
+                                        <span class="position-absolute top-0 end-0 m-3">
+                                            <i class="ph ph-trophy text-worning"
+                                                style="font-size: 4rem; opacity: 0.5;"></i>
+                                        </span>
                                     </div>
                                 </div>
-                            </div>
-                        @endforeach
+                            @endforeach
+                        </div>
                     </div>
                 </div>
+            </div>
 
-            </div>
         </div>
-        <footer class="pc-footer">
-            <div class="footer-wrapper container-fluid">
-                <div class="row">
-                    <div class="col-sm-6 my-1">
-                        <p class="m-0">Gradient Able &#9829; crafted by Team <a href="#" target="_blank">Hariom
-                                dangi </a></p>
-                    </div>
-                    <div class="col-sm-6 ms-auto my-1">
-                        <ul class="list-inline footer-link mb-0 justify-content-sm-end d-flex">
-                            <li class="list-inline-item"><a href="{{ route('home') }}">Home</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </footer>
+    </div>
+    @include('footer')
 </body>
 <!-- Bootstrap Bundle with Popper -->
 
@@ -152,32 +175,96 @@
 
 </html>
 
-<script src="https://js.stripe.com/v3/"></script>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <script>
-    const stripe = Stripe('{{ env('STRIPE_KEY') }}');
-    const elements = stripe.elements();
-    const cardElement = elements.create('card');
-    cardElement.mount('#card-element');
+    var price = {{ $ticket->ticket_price }};
+    var quantityInput = document.getElementById('quantity');
+    var payBtn = document.getElementById('paybtn');
 
-    const payBtn = document.getElementById('pay-btn');
+    // Update button label on input
+    quantityInput.addEventListener('input', function() {
+        var qty = parseInt(this.value) ;
+        // Ensure quantity does not exceed available tickets
+        if (isNaN(qty) || qty < 0) {
+            // Default to 1 if input is invalid
+            payBtn.disabled = true;
+            payBtn.innerText = 'Pay ₹0.00'+'not available';
+            return;
+        }
+        if (isNaN(qty) || qty < 1) {
+            qty = 1; // Default to 1 if input is invalid
 
-    payBtn.addEventListener('click', function() {
-        payBtn.disabled = true;
+        }
+         if (qty > {{ $ticket->total_tickets - $ticket->sold_tickets }}) {
+            qty = {{ $ticket->total_tickets - $ticket->sold_tickets }};
+        }
 
-        stripe.createPaymentMethod({
-            type: 'card',
-            card: cardElement,
-            billing_details: {
-                name: document.querySelector('input[name="name"]').value,
-            },
-        }).then(function(result) {
-            if (result.error) {
-                alert(result.error.message);
-                payBtn.disabled = false;
-            } else {
-                document.getElementById('payment-method').value = result.paymentMethod.id;
-                document.getElementById('checkout-form').submit();
-            }
-        });
+
+
+        this.value = qty; // Update input value to valid quantity
+        payBtn.innerText = 'Pay ₹' + (qty * price).toFixed(2);
     });
+
+    var options = {
+        "key": "{{ env('RAZORPAY_API_KEY') }}",
+        "amount": price * 100, // Default amount in paise
+        "currency": "INR",
+        "name": "Lottery Ticket Purchase",
+        "description": "Purchase lottery ticket for {{ $ticket->title }}",
+        "image": "{{ asset('images/logo.png') }}",
+        "prefill": {
+            "name": "{{ Auth::user()->name }}",
+            "email": "{{ Auth::user()->email }}",
+            "contact": "{{ Auth::user()->phone }}"
+        },
+        "theme": {
+            "color": "#62a1e9f5"
+        },
+        "method": {
+            "upi": true,
+            "card": true,
+        },
+        "handler": function(response) {
+            console.log('Payment success:', response);
+            $.ajax({
+                url: "{{ route('payment.success') }}",
+                type: "POST",
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    lottery_id: "{{ $ticket->id }}",
+                    user_id: "{{ Auth::id() }}",
+                    price: options.amount / 100,
+                    razorpay_payment_id: response.razorpay_payment_id,
+
+                    quantity: parseInt(quantityInput.value) || 1
+                },
+                success: function(data) {
+
+
+
+                    document.getElementById('checkout-form').submit();
+
+                },
+                error: function(xhr, status, error) {
+                    console.error('Payment processing failed:', error);
+                    alert('Payment processing failed. Please try again.');
+                }
+            });
+        },
+        "modal": {
+            "ondismiss": function() {
+                console.log('Payment popup dismissed');
+            }
+        }
+    };
+
+    payBtn.onclick = function(e) {
+        e.preventDefault();
+        // Always update amount before opening Razorpay
+        var qty = parseInt(quantityInput.value) || 1;
+        options.amount = qty * price * 100;
+        var rzp = new Razorpay(options);
+        rzp.open();
+
+    };
 </script>
