@@ -200,6 +200,14 @@
         payBtn.disabled = true; // Disable the button to prevent multiple clicks
 
               e.preventDefault();
+
+              if(quantityInput.value==0){
+                return
+              }
+              else if( {{ $ticket->total_tickets - $ticket->sold_tickets==0}}){
+                alert("Sold full ")
+                return
+              }
         var qty = parseInt(quantityInput.value) || 1;
 
         $.ajax({

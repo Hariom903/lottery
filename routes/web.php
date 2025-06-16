@@ -77,8 +77,14 @@ Route::middleware(['Authuser'])->group(function () {
 
 
     });
+//set cookies
+// accept.cookie
+Route::post('accept/cookie',function(){
 
-    Route::get('/lottery',[LotteriesController::class,'index'])->name('lotteries.index');
+    return redirect()->back()->cookie('cookie_accepted', 'yes', 365*24*60);;
+})->name('accept.cookie');
+
+Route::get('/lottery',[LotteriesController::class,'index'])->name('lotteries.index');
 Route::get('/ramram',[handle::class,'handlePayment']);
 //contct us
 Route::get('/contact-us',[ContactController::class,'contactUs'])->name('contact.us');

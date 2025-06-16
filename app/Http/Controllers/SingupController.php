@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
+use phpseclib3\Crypt\EC\Curves\prime192v1;
 
 class SingupController extends Controller
 {
@@ -35,6 +36,14 @@ class SingupController extends Controller
     }
 
     public function loginForm(){
+       if (request()->cookie('User')) {
+    $user = json_decode(request()->cookie('User'));
+    $id = $user->id ?? null;
+    // Use find() to get the Eloquent User model by ID
+       $user = User::find($id);
+      return view('login', compact('user'));
+} 
+
           return view('login');
     }
     public function login(Request $request){
@@ -47,10 +56,9 @@ class SingupController extends Controller
         // Attempt to authenticate the user
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             // If successful, redirect to the dashboard
-           Cookie::queue(Cookie::make('user_email', $request->email, 60 * 24 * 30)); // 30 days
-            Cookie::queue(Cookie::make('user_password', $request->password, 60 * 24 * 30));
 
-           return redirect()->intended();
+
+           return redirect()->intended()->cookie('User',Auth::user(),60*24*365);
         } else {
             // If authentication fails, redirect back to the login page with an error message
              return back()->withErrors([

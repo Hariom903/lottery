@@ -30,10 +30,11 @@ class AuthenticationController extends Controller
                  'google_id' => $user->id,
                  'password' => bcrypt('password'), // You can set your own password
              ]);
+
              if($user1){
                 Auth::login($user1);
-                 
-                     return redirect()->intended();
+
+                     return redirect()->intended()->cookie('User',$user1 ,60*24*365);;
             }
 
 
@@ -46,9 +47,9 @@ class AuthenticationController extends Controller
             ->first();
             $userlogin->google_id = $user->id;
             $userlogin->save();
-            Auth::login($userlogin);
-              return redirect()->intended('/');
 
+            Auth::login($userlogin);
+              return redirect()->intended('/')->cookie('User',$userlogin ,60*24*365);
          }
 }
 

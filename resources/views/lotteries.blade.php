@@ -101,6 +101,10 @@
                                     <h2 class="text-start h5 text-white">
                                         <span>Open Date: {{ \Carbon\Carbon::parse($lottery->draw_datetime)->format('d M Y') }}</span>
                                     </h2>
+                                     <div class="mb-2">
+                                    <span class="fw-bold text-danger" id="countdown-{{ $lottery->id }}"> heloo </span>
+                                    </div>
+
                                     <p class="m-b-0 text-white text-end">
                                         {{ $lottery->description }}
                                         <span class="float-end">Total Tickets: {{ $lottery->total_tickets }}</span>
@@ -123,6 +127,61 @@
     </button>
     @include('footer')
 </body>
+ <script>
+
+     $(document).ready(function() {
+        // Initialize the countdowns
+    // console.log("Initializing countdowns...");
+    var countdowns = [
+        @foreach ($lotteries as $lottery)
+            {
+                id: "countdown-{{ $lottery->id }}",
+                endTime: new Date("{{ \Carbon\Carbon::parse($lottery->draw_datetime)->format('Y-m-d H:i:s') }}")
+                    .getTime()
+
+            },
+        @endforeach
+    ];
+
+    function updateCountdowns() {
+        // console.log("Updating countdowns...");
+        var now = new Date().getTime();
+        countdowns.forEach(function(cd) {
+            var el = document.getElementById(cd.id);
+            //   console.log(el.innerHTML);
+            // console.log("Element for countdown", cd.id, ":", el);
+            if (!el) return;
+            // console.log("Updating countdown for:", cd.id);
+            var distance = cd.endTime - now;
+            if (distance < 0) {
+                // console.log(el);
+                // display none prrent element
+              var pr =   el.parentElement;
+             pr=pr.parentElement;
+                  pr.classList.add('danger');
+                pr.classList.remove('bg-grd-primary');
+                pr.classList.add('bg-grd-danger');
+                pr.classList.add('text-white');
+                pr.classList.add('box-shadow');
+                pr.classList.add('rounded-5');
+                pr.classList.add('order-card');
+             pr.parentElement.parentElement.href = "#";
+                el.innerHTML = "Ended";
+                return;
+            }
+            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            el.innerHTML = days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+            // el.innerHTML = "Ram arakl;sfnobsnj"
+            //   console.log("Countdown for", cd.id, ":", el.innerHTML);
+        });
+    }
+    updateCountdowns();
+    setInterval(updateCountdowns, 1000);
+     });
+</script>
 <script src="{{ asset('js/plugins/popper.min.js') }}"></script>
 <script src="{{ asset('js/plugins/simplebar.min.js') }}"></script>
 <script src="{{ asset('js/plugins/bootstrap.min.js') }}"></script>

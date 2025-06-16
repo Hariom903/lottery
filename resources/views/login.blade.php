@@ -60,14 +60,14 @@
 
 
                             <div class="form-group mb-3">
-                                <input type="email" class="form-control" name='email' value="{{ old('email') }}"
+                                <input type="email" class="form-control" name='email' value="{{ $user->email ??  old('email') }}"
                                     id="floatingInput" placeholder="Email Address" />
                             </div>
                             @error('email')
                                 <samp class="red-error">{{ $message }}</samp>
                             @enderror
                             <div class="form-group mb-3">
-                                <input type="password" class="form-control" name='password' id="floatingInput1"
+                                <input type="password"  class="form-control" name='password' id="floatingInput1"
                                     placeholder="Password" />
                             </div>
                             @error('password')

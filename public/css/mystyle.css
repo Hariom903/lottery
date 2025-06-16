@@ -73,6 +73,7 @@
     right: 32px;
     z-index: 999;
     display: none;
+    display: block;
     border-radius: 50%;
     width: 48px;
     height: 48px;
@@ -88,4 +89,27 @@
 .bg-grd-danger {
     background: linear-gradient(135deg, #d9534f, #c9302c);
     color: white;
+}
+.cookie-consent-bar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 80px;
+    padding: 20px 20px;
+
+    background: #222;
+    z-index: 9999;
+    width: 100%;
+    color: #fff;
+}
+@media (max-width: 576px) {
+    .cookie-consent-bar .d-flex {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+    }
+    .cookie-consent-bar button {
+        width: 100%;
+        margin-top: 10px;
+    }
 }

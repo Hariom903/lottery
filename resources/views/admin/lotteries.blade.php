@@ -33,7 +33,7 @@
                                 <div class="mb-3">
                                     <label for="winning_number" class="form-label">description</label>
 
-                                        <textarea id="markdown-editor"  rows="16"  value="{{ old('description') }}"  name="description"></textarea>
+                                    <textarea id="markdown-editor" rows="16" value="{{ old('description') }}" name="description"></textarea>
 
 
                                 </div>
@@ -48,7 +48,6 @@
                                 </div>
                                 @error('ticket_price')
                                     <samp class="red-error">{{ $message }}</samp>
-
                                 @enderror
 
                                 <div class="mb-3">
@@ -62,8 +61,8 @@
 
                                 <div class="mb-3">
                                     <label for="number_winners" class="form-label"> Number of winners </label>
-                                    <input type="number" min='1' value="{{ old('number_winners') }}" class="form-control"
-                                        id="number_winners" name="number_of_winners">
+                                    <input type="number" min='1' value="{{ old('number_winners') }}"
+                                        class="form-control" id="number_winners" name="number_of_winners">
                                 </div>
                                 @error('sold_tickets')
                                     <samp class="red-error">{{ $message }}</samp>
@@ -73,7 +72,7 @@
                                     <button type="submit" class="btn btn-primary btn-block">Add Lottery</button>
                                 </div>
                             </form>
-                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -82,7 +81,7 @@
         <div class="col-9 d-flex justify-content-end">
             <form action="{{ route('lottery') }}" method="GET">
                 <div class="input-group" style="width: 350px;">
-                    <input type="text" class="form-control"  name='search' value="{{ old('search') }}"
+                    <input type="text" class="form-control" name='search' value="{{ old('search') }}"
                         placeholder="Search by lottery name...">
                     <button class="btn btn-primary" type="submit">Search</button>
                 </div>
@@ -99,28 +98,28 @@
 
     <div class="row">
         @foreach ($lotteries as $lottery)
-        <div class="col-md-6 col-xl-3">
-          <a href="{{ route('lottery.show',$lottery->tid) }}">
-                <div class="card bg-grd-primary order-card">
-                    <div class="card-body">
-                        <h6 class="text-white">{{ $lottery->title }}</h6>
-                        <h2 class="text-start h4 text-white"><i class="ph ph-ticket"> </i> <span>Ticket
-                                Price:{{ $lottery->ticket_price }}</span>
-                            <h2 class="text-start h4 text-white"><i class="ph ph-ticket"> </i><span>Totle Solt:
-                                    {{ $lottery->sold_tickets }}</span>
-                            </h2>
-                            <h2 class="text-start h5 text-white">
-                                <span>Open Date:
-                                    {{ \Carbon\Carbon::parse($lottery->draw_datetime)->format('d M Y') }}</span>
-                            </h2>
+            <div class="col-md-6 col-xl-3">
+                <a href="{{ route('lottery.show', $lottery->tid) }}">
+                    <div class="card bg-grd-primary order-card">
+                        <div class="card-body">
+                            <h6 class="text-white">{{ $lottery->title }}</h6>
+                            <h2 class="text-start h4 text-white"><i class="ph ph-ticket"> </i> <span>Ticket
+                                    Price:{{ $lottery->ticket_price }}</span>
+                                <h2 class="text-start h4 text-white"><i class="ph ph-ticket"> </i><span>Totle Solt:
+                                        {{ $lottery->sold_tickets }}</span>
+                                </h2>
+                                <h2 class="text-start h5 text-white">
+                                    <span>Open Date:
+                                        {{ \Carbon\Carbon::parse($lottery->draw_datetime)->format('d M Y') }}</span>
+                                </h2>
 
-                            <p class="m-b-0"> {{ $lottery->description }}<span class="float-end">Total Tickets:
-                                    {{ $lottery->total_tickets }}</span></p>
+                                <p class="m-b-0"> {{ $lottery->description }}<span class="float-end">Total Tickets:
+                                        {{ $lottery->total_tickets }}</span></p>
+                               
                     </div>
-                </div>
-            </a>
+                </a>
             </div>
-            @endforeach
+        @endforeach
     </div>
     <div class="row ">
         <div class="col-12 d-flex justify-content-end mt-3">
@@ -128,3 +127,5 @@
         </div>
     </div>
 @endsection
+
+
