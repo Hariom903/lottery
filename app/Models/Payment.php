@@ -13,6 +13,9 @@ class Payment extends Model
      protected $guarded = ['id'];
     protected $fillable = [
         'r_payment_id',
+        'razorpay_order_id',
+        'razorpay_signature',
+        'ticket_id',
         'method',
         'currency',
         'email',

@@ -55,7 +55,7 @@
                             <img src="{{ asset('images/logo-dark.svg') }}" alt="images" class="img-fluid mb-4" />
                             <h4 class="f-w-500 mb-1">Login with your email</h4>
                         </div>
-                        <form action="{{ route('login') }}" method="post">
+                        <form action="{{ route('admin.login') }}" method="post">
                             @csrf
 
 

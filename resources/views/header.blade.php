@@ -36,6 +36,9 @@
                       <a href="#" class="pc-head-link">About</a>
                   </li>
                   <li class="pc-h-item">
+                      <a href="{{ route('lotteries.index') }}" class="pc-head-link">Lotteries</a>
+                  </li>
+                  <li class="pc-h-item">
                       <a href="{{ url('/' . '#contact-us') }}" class="pc-head-link">Contect us</a>
                   </li>
                   @if (!Auth::check())

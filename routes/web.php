@@ -47,7 +47,7 @@ Route::prefix('admin/')->group(function () {
         Route::post('winnernumber',[PriceaddController::class,'winnernumber'])->name('winnernumber');
     });
 
-    Route::get('login',[AdminController::class,'login'])->name('login');
+    Route::get('login',[AdminController::class,'login'])->name('admin.login');
     Route::post('login',[AdminController::class,'loginPost']);
     Route::post('logout', [AdminController::class, 'logout'])->name('admin.logout');
 
@@ -69,14 +69,16 @@ Route::middleware(['Authuser'])->group(function () {
     Route::post('/notifications/clear',[NotificationController::class ,'Delete'])->name('notifications.clear');
      Route::post('/notifications/mark-all-read',[NotificationController::class,'MarkAsRead'])->name('notifications.markAllRead');
 
-     Route::get('/lottery',[LotteriesController::class,'index'])->name('lotteries.index');
 
-     Route::post('payment/success', [RazorpayController::class, 'payment'])->name('payment.success');
+     Route::post('payment/verifyPayment', [RazorpayController::class, 'verifyPayment'])->name('payment.verifyPayment');
+    Route::post('payment/createorder', [RazorpayController::class, 'createOrder'])->name('payment.createOrder');
+    Route::post('payment/store', [RazorpayController::class, 'store'])->name('payment.store');
+    Route::get('/payment/success', [RazorpayController::class, 'success'])->name('payment.success');
 
 
+    });
 
-});
-
+    Route::get('/lottery',[LotteriesController::class,'index'])->name('lotteries.index');
 Route::get('/ramram',[handle::class,'handlePayment']);
 //contct us
 Route::get('/contact-us',[ContactController::class,'contactUs'])->name('contact.us');

@@ -11,8 +11,14 @@ class UserController extends Controller
 {
    public function mytickets()
 {
+    // latest tickets for the authenticated user
+
+
+
+
     $tickets = Ticket::with('lottery')
         ->where('user_id', Auth::id())
+        ->orderBy('created_at', 'desc')
         ->get();
 
 
@@ -21,6 +27,6 @@ class UserController extends Controller
     return view('myticket', compact('tickets'));
 }
 
-    
+
 
 }

@@ -66,7 +66,8 @@
                                 <li class="breadcrumb-item"><a href="{{ route('home') }}"><i
                                             class="ph ph-house"></i></a></li>
                                 <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-                                <li class="breadcrumb-item" aria-current="page"><a href="{{ route('lotteries.index') }}">lotteries </a> </li>
+                                <li class="breadcrumb-item" aria-current="page"><a
+                                        href="{{ route('lotteries.index') }}">lotteries </a> </li>
                                 <li class="breadcrumb-item" aria-current="page"> Buy a Lottery </li>
                             </ul>
                         </div>
@@ -82,7 +83,7 @@
                 </div>
             @endsession
             <div class="card  mt-1 ">
-                <div class="card-header  text-white rounded-top-4" >
+                <div class="card-header  text-white rounded-top-4">
                     <h4 class="mb-0">{{ $ticket->title }}</h4>
                 </div>
 
@@ -108,7 +109,7 @@
                                         value="1" required>
                                 </div>
 
-                                <button id="paybtn" type="submit" class="btn btn-success w-100">
+                                <button id="paybtn" type="button" class="btn btn-success w-100">
                                     Pay ₹{{ $ticket->ticket_price }}
                                 </button>
                             </form>
@@ -144,7 +145,7 @@
                                                 </div>
                                             </div>
                                             <div class="mt-auto">
-                                                <span class="text-white-50 small">Congratulations to  winner!</span>
+                                                <span class="text-white-50 small">Congratulations to winner!</span>
                                             </div>
                                         </div>
                                         <span class="position-absolute top-0 end-0 m-3">
@@ -183,88 +184,111 @@
 
     // Update button label on input
     quantityInput.addEventListener('input', function() {
-        var qty = parseInt(this.value) ;
-        // Ensure quantity does not exceed available tickets
-        if (isNaN(qty) || qty < 0) {
-            // Default to 1 if input is invalid
-            payBtn.disabled = true;
-            payBtn.innerText = 'Pay ₹0.00'+'not available';
-            return;
-        }
-        if (isNaN(qty) || qty < 1) {
-            qty = 1; // Default to 1 if input is invalid
-
-        }
-         if (qty > {{ $ticket->total_tickets - $ticket->sold_tickets }}) {
+        var qty = parseInt(this.value) || 1;
+        if (qty < 1) qty = 1;
+        if (qty > {{ $ticket->total_tickets - $ticket->sold_tickets }}) {
             qty = {{ $ticket->total_tickets - $ticket->sold_tickets }};
         }
-
-
-
-        this.value = qty; // Update input value to valid quantity
+        this.value = qty;
         payBtn.innerText = 'Pay ₹' + (qty * price).toFixed(2);
     });
 
-    var options = {
-        "key": "{{ env('RAZORPAY_API_KEY') }}",
-        "amount": price * 100, // Default amount in paise
-        "currency": "INR",
-        "name": "Lottery Ticket Purchase",
-        "description": "Purchase lottery ticket for {{ $ticket->title }}",
-        "image": "{{ asset('images/logo.png') }}",
-        "prefill": {
-            "name": "{{ Auth::user()->name }}",
-            "email": "{{ Auth::user()->email }}",
-            "contact": "{{ Auth::user()->phone }}"
-        },
-        "theme": {
-            "color": "#62a1e9f5"
-        },
-        "method": {
-            "upi": true,
-            "card": true,
-        },
-        "handler": function(response) {
-            console.log('Payment success:', response);
-            $.ajax({
-                url: "{{ route('payment.success') }}",
-                type: "POST",
-                data: {
-                    _token: "{{ csrf_token() }}",
-                    lottery_id: "{{ $ticket->id }}",
-                    user_id: "{{ Auth::id() }}",
-                    price: options.amount / 100,
-                    razorpay_payment_id: response.razorpay_payment_id,
+    payBtn.addEventListener('click', function(e) {
+         //loader showing
+        // Show a loading indicator
+        payBtn.innerText = 'Processing...';
+        payBtn.disabled = true; // Disable the button to prevent multiple clicks
 
-                    quantity: parseInt(quantityInput.value) || 1
-                },
-                success: function(data) {
-
-
-
-                    document.getElementById('checkout-form').submit();
-
-                },
-                error: function(xhr, status, error) {
-                    console.error('Payment processing failed:', error);
-                    alert('Payment processing failed. Please try again.');
-                }
-            });
-        },
-        "modal": {
-            "ondismiss": function() {
-                console.log('Payment popup dismissed');
-            }
-        }
-    };
-
-    payBtn.onclick = function(e) {
-        e.preventDefault();
-        // Always update amount before opening Razorpay
+              e.preventDefault();
         var qty = parseInt(quantityInput.value) || 1;
-        options.amount = qty * price * 100;
-        var rzp = new Razorpay(options);
-        rzp.open();
 
-    };
+        $.ajax({
+            url: "{{ route('payment.createOrder') }}",
+            type: "POST",
+            data: {
+                'lottery_id': '{{ $ticket->id }}',
+                'quantity': qty,
+                'price': price,
+                '_token': '{{ csrf_token() }}'
+            },
+            success: (data) => {
+                // console.log('Order created successfully:', data);
+                var options = {
+                    "key": "{{ env('RAZORPAY_API_KEY') }}",
+                    "amount": data.amount, // Amount in paise
+                    "currency": "INR",
+                    "name": "Lottery Ticket Purchase",
+                    "description": "Purchase lottery ticket for {{ $ticket->title }}",
+                    "image": "{{ asset('images/logo.png') }}",
+                    "order_id": data.id, // This is the order_id created by you in your server
+                    "handler": function(response) {
+                        console.log('Payment successful:', response);
+                        if(response.razorpay_payment_id) {
+                            $.ajax({
+                                url: "{{ route('payment.store') }}",
+                                type: "POST",
+                                data: {
+                                    'razorpay_order_id': response.razorpay_order_id,
+                                    'razorpay_payment_id': response.razorpay_payment_id,
+                                    'razorpay_signature': response.razorpay_signature,
+                                     'status': 'success',
+                                    'amount': data.amount,
+                                    'currency': "INR",
+                                    'email': "{{ Auth::user()->email }}",
+                                    'phone': "{{ Auth::user()->phone ?? ' ' }}",
+                                    "user_id": "{{ Auth::user()->id }}",
+                                    'quantity': qty,
+                                    'lottery_id': '{{ $ticket->id }}',
+                                    '_token': '{{ csrf_token() }}'
+
+                                },
+                                success: (response) => {
+                                    // console.log('Payment stored successfully:', response);
+                                    if (response.status === 'success') {
+                                        // alert('Payment successful! Your ticket has been purchased.');
+                                        window.location.href = `{{ route('payment.success') }}`;
+                                    } else {
+                                        alert('Payment failed. Please try again.');
+                                    }
+                                },
+                                error: (xhr, status, error) => {
+                                    console.error('Error storing payment:', error);
+                                    alert('Failed to store payment. Please try again.');
+                                }
+                            })
+
+
+                        } else {
+                            alert('Payment failed. Please try again.');
+                        }
+
+
+                    },
+                    "prefill": {
+                        "name": "{{ Auth::user()->name }}",
+                        "email": "{{ Auth::user()->email }}",
+                        "contact": "{{ Auth::user()->phone }}"
+                    },
+                    "theme": {
+                        "color": "#62a1e9f5"
+                    },
+                    "method": {
+                        "upi": true,
+                        "card": true,
+                    },
+
+                }
+
+                var rzp1 = new Razorpay(options);
+                rzp1.open();
+            },
+            error: (xhr, status, error) => {
+                console.error('Error creating order:', error);
+                alert('Failed to create order. Please try again.');
+            }
+        })
+
+
+    });
+
 </script>

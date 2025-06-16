@@ -19,7 +19,7 @@ class AdminAuth
     {
           if(!Auth::check() || Auth::user()->role != 'admin'){
             session(['url.intended' => url()->current()]);
-            return redirect()->route('login');
+            return redirect()->route('admin.login');
           }
 
         return $next($request);

@@ -38,10 +38,12 @@ class handle extends Controller
                         $ticket->save();
                         $lottey_id = $ticket->lottery_id;
                         $user_id = $ticket->user_id;
-                       
+                        $lottey_number = $ticket->ticket_number;
+
                         $lotters = Lottery::find($lottery_id);
+
                         $winner = WinnerPrice::where('winner_position', $i + 1)->first();
-                        $winner->winner_id = $user_id;
+                        $winner->user_id = $user_id;
                         $winner->status = 'successful';
                         $winner->save();
                         $lotters->winner_id = $user_id;
@@ -51,7 +53,7 @@ class handle extends Controller
 
                         $user = User::find($user_id);
                         if ($user) {
-                            //   $user->notify(new Winner());
+                              $user->notify(new Winner($lottey_number));
                             print_r("Winner has been notified");
                         }
                     }

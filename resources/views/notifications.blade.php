@@ -17,9 +17,13 @@
               style="max-height: calc(100vh - 215px)">
 
 
-              <p class="text-span">Today</p>
-
-              @foreach (auth()->user()->unreadNotifications as $notification)
+              <p class="text-span text-center p-2  ">  Today </p>
+              @if( auth()->user()->unreadNotifications->isEmpty())
+              <div class="text-center py-5">
+                  <p class="text-muted">No new notifications</p>
+                </div>
+                @endif
+                @foreach (auth()->user()->unreadNotifications as $notification)
                   <div class="card mb-0">
                       <div class="card-body">
                           <div class="d-flex">
@@ -49,6 +53,7 @@
         @csrf
         <button type="submit" class="btn btn-link link-danger p-0">Clear all Notifications</button>
     </form>
+    
 </div>
       </div>
   </li>

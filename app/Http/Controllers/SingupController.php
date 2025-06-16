@@ -31,7 +31,7 @@ class SingupController extends Controller
      $user->save();
 
      // Redirect to the login page
-     return redirect()->route('login')->with('success', 'Registration successful!');
+     return redirect()->route('user.login')->with('success', 'Registration successful!');
     }
 
     public function loginForm(){
@@ -41,7 +41,7 @@ class SingupController extends Controller
         // Validate the form data
         $request->validate([
            'email' =>'required|email',
-           'password' => 'required|min:8',
+           'password' => 'required',
         ]);
 
         // Attempt to authenticate the user
