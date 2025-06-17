@@ -1,16 +1,18 @@
 # Lottery APK - Laravel Project
 
-This is a Laravel-based lottery web application that allows users to register, buy lottery tickets, view winners, and manage lotteries via an admin panel. The project uses Stripe for payments and supports user authentication, notifications, and an admin dashboard.
+This is a Laravel-based lottery web application that allows users to register, buy lottery tickets, view winners, and manage lotteries via an admin panel. The project uses **Razorpay** and **Stripe** for payments and supports user authentication (including Google OAuth), notifications, and an admin dashboard.
 
 ## Features
 
 - User registration and login (including Google OAuth)
 - Buy lottery tickets online
-- Stripe payment integration
+- Razorpay and Stripe payment integration
 - View your tickets and lottery results
 - Admin panel for managing lotteries and winners
 - Notifications for winners
 - Responsive Bootstrap-based UI
+- Cookie consent bar (server-side, mobile-friendly)
+- Contact form and policy pages
 
 ## Installation
 
@@ -34,6 +36,7 @@ This is a Laravel-based lottery web application that allows users to register, b
    ```
    - Set your database credentials in `.env`
    - Set your Stripe keys (`STRIPE_KEY`, `STRIPE_SECRET`)
+   - Set your Razorpay keys (`RAZORPAY_API_KEY`, `RAZORPAY_API_SECRET`)
 
 4. **Run migrations and seeders:**
    ```bash
@@ -57,6 +60,8 @@ This is a Laravel-based lottery web application that allows users to register, b
 - `/mytickets` - View your tickets
 - `/admin/dashboard` - Admin dashboard (admin only)
 - `/ramram` - Run lottery winner selection (for testing)
+- `/contact-us` - Contact form
+- `/terms-of-use`, `/privacy-notice`, `/cookie-policy` - Policy pages
 
 ## Admin Access
 
@@ -65,8 +70,13 @@ This is a Laravel-based lottery web application that allows users to register, b
 
 ## Payment Integration
 
-- Stripe is used for secure payments.
-- Set your Stripe API keys in the `.env` file.
+- **Razorpay** and **Stripe** are used for secure payments.
+- Set your API keys in the `.env` file.
+
+## Cookie Consent
+
+- Cookie consent is handled server-side (no JavaScript required).
+- Users see a consent bar until accepted; acceptance is stored in a cookie.
 
 ## Customization
 
