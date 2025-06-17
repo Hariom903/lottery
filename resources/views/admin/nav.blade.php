@@ -6,7 +6,7 @@
                  <img src="{{ asset('images/logo-white.svg') }}" alt="logo image" class="logo-lg" />
              </a>
          </div>
-    
+
          <div class="navbar-content">
              <ul class="pc-navbar">
                  <li class="pc-item pc-caption">
@@ -39,6 +39,12 @@
                      <a href="{{ route('price.add') }}" class="pc-link">
                          <span class="pc-micon"><i class="ph ph-currency-inr"></i></span>
                          <span class="pc-mtext"> Add price  </span>
+                     </a>
+                 </li>
+                 <li class="pc-item">
+                     <a href="{{ route('poster.add') }}" class="pc-link">
+                         <span class="pc-micon"><i class="ph ph-plus-square"></i></i></span>
+                         <span class="pc-mtext"> Add Poster  </span>
                      </a>
                  </li>
                  <li class="pc-item">

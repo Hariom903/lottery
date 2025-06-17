@@ -33,7 +33,7 @@
     <link rel="stylesheet" href="{{ asset('css/style.css') }}" id="main-style-link" />
     <link rel="stylesheet" href="{{ asset('css/style-preset.css') }}" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
-
+   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 </head>
 <!-- [Head] end -->

@@ -15,7 +15,7 @@
                         <a href="{{ url('mytickets') }}" class="text-white text-decoration-none">My Tickets</a>
                     </li>
                     <li class="menu-item pb-2">
-                        <a href="#" class="text-white text-decoration-none">Contact</a>
+                        <a href="{{ url("/#contact-us") }}" class="text-white text-decoration-none">Contact</a>
                     </li>
                 </ul>
             </div>

@@ -32,6 +32,8 @@ Route::get('/signup',[SingupController::class,'signupform'])->name('signup.form'
 Route::post('/signup',[SingupController::class,'signup'])->name('signup');
 Route::get('/login',[SingupController::class,'loginform'])->name('user.login');
 Route::post('/login',[SingupController::class,'login'])->name('user.login');
+Route::get('admin/login',[AdminController::class,'login'])->name('admin.login');
+Route::post('admin/login',[AdminController::class,'loginPost']);
 });
 
 Route::prefix('admin/')->group(function () {
@@ -44,11 +46,10 @@ Route::prefix('admin/')->group(function () {
         Route::post('lottery/price',[AdminController::class, 'pricestore'])->name('lottery.prizes.store');
         Route::get('addprice',[PriceaddController::class,'index'])->name('price.add');
         Route::post('addprice',[PriceaddController::class,'store'])->name('price.add.store');
+        Route::get('addposter',[AdminController::class,'poster'])->name('poster.add');
         Route::post('winnernumber',[PriceaddController::class,'winnernumber'])->name('winnernumber');
     });
 
-    Route::get('login',[AdminController::class,'login'])->name('admin.login');
-    Route::post('login',[AdminController::class,'loginPost']);
     Route::post('logout', [AdminController::class, 'logout'])->name('admin.logout');
 
 });

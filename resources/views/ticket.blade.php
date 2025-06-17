@@ -20,9 +20,7 @@
                 </p>
                 <div class="d-flex justify-content-between align-items-center">
                     <span class="fw-semibold text-dark">Total Tickets: {{ $lottery->total_tickets }}</span>
-                    <div class="mb-2">
-    <span class="fw-bold text-danger" id="countdown-{{ $lottery->id }}">  heloo  </span>
-</div>
+                  
                     <a href="{{ url('cards/' . $lottery->tid) }}" class="btn btn-primary btn-sm px-4">Buy Now</a>
                 </div>
             </div>
@@ -32,48 +30,12 @@
 </div>
 <script>
 
-    // Collect all countdowns
-  var countdowns = [
-    @foreach ($lotteries as $lottery)
-      {
-        id: "countdown-{{ $lottery->id }}",
-        endTime: new Date("{{ \Carbon\Carbon::parse($lottery->draw_datetime)->format('Y-m-d H:i:s') }}").getTime()
-      },
-    @endforeach
-  ];
-
-  function updateCountdowns() {
-    // console.log("Updating countdowns...");
-    var now = new Date().getTime();
-    countdowns.forEach(function(cd) {
-        var el = document.getElementById(cd.id);
-    //   console.log(el.innerHTML);
-        // console.log("Element for countdown", cd.id, ":", el);
-      if (!el) return;
-        // console.log("Updating countdown for:", cd.id);
-      var distance = cd.endTime - now;
-      if (distance < 0) {
-        el.innerHTML = "Ended";
-        return;
-      }
-      var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-      el.innerHTML = days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
-    // el.innerHTML = "Ram arakl;sfnobsnj"
-    //   console.log("Countdown for", cd.id, ":", el.innerHTML);
-    });
-  }
-
-  updateCountdowns();
-  setInterval(updateCountdowns, 3000);
   $(document).ready(function(){
     $('.owl-carousel-ticket').owlCarousel({
         loop:true,
         margin:24,
-        nav:true,
-        dots:true,
+        nav:false,
+        dots:false,
         autoplay: true,
         responsive:{
             0:{ items:1 },

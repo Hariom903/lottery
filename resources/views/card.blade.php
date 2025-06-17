@@ -33,6 +33,7 @@
     <link rel="stylesheet" href="{{ asset('css/style.css') }}" id="main-style-link" />
     <link rel="stylesheet" href="{{ asset('css/style-preset.css') }}" />
     {{-- jQuery library --> --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <!-- [Head] end -->
@@ -98,15 +99,28 @@
                                 <p><strong>Sold Tickets:</strong> {{ $ticket->sold_tickets }}</p>
                             </div>
 
-                            <form action="{{ route('cards.store') }}" method="POST" id="checkout-form">
+                            <form id="checkout-form">
                                 @csrf
                                 <input type="hidden" name="lottery_id" value="{{ $ticket->id }}">
 
                                 <div class="form-group mb-3">
                                     <label for="quantity" class="form-label">Number of Tickets to Buy:</label>
-                                    <input type="number" id="quantity" name="quantity" min="1"
+                                    {{-- <input type="number" id="quantity" name="quantity" min="1"
                                         max="{{ $ticket->total_tickets - $ticket->sold_tickets }}" class="form-control"
-                                        value="1" required>
+                                       value="1" required> --}}
+                                    <div class="mb-3 form-group d-flex align-items-center justify-content-center gap-2">
+                                        <button type="button" class="btn btn-primary btn-sm rounded-circle"
+                                            id="decrement">
+                                            <i class="bi bi-dash"></i>
+                                        </button>
+                                        <input type="number" id="quantity" name="quantity"
+                                            class="form-control  text-center" value="1" min="1"
+                                            style="width: 90px; font-weight: bold;">
+                                        <button type="button" class="btn btn-primary btn-sm rounded-circle"
+                                            id="increment">
+                                            <i class="bi bi-plus"></i>
+                                        </button>
+                                    </div>
                                 </div>
 
                                 <button id="paybtn" type="button" class="btn btn-success w-100">
@@ -182,32 +196,64 @@
     var quantityInput = document.getElementById('quantity');
     var payBtn = document.getElementById('paybtn');
 
+    document.getElementById('increment').onclick = function() {
+        var qty = document.getElementById('quantity');
+        payBtn.disabled = false;
+        var count = qty.value = parseInt(qty.value) + 1;
+        payBtn.innerText = 'Pay ₹' + (count * price).toFixed(2);
+    };
+    document.getElementById('decrement').onclick = function() {
+        var qty = document.getElementById('quantity');
+        payBtn.disabled = false;
+        if (parseInt(qty.value) > 1)
+            var count = qty.value = parseInt(qty.value) - 1;
+        payBtn.innerText = 'Pay ₹' + (count * price).toFixed(2);
+    };
+    var end = new Date("{{ \Carbon\Carbon::parse($ticket->draw_datetime)->format('Y-m-d H:i:s') }}").getTime();
+    var now = new Date().getTime();
+    var diff = end - now;
+    // console.log(diff);
+    if (diff < 0) {
+        payBtn.innerText = ' Lottery End  ';
+        payBtn.disabled = true;
+        quantityInput.disabled = true;
+
+    }
     // Update button label on input
     quantityInput.addEventListener('input', function() {
+        payBtn.disabled = false;
         var qty = parseInt(this.value) || 1;
         if (qty < 1) qty = 1;
         if (qty > {{ $ticket->total_tickets - $ticket->sold_tickets }}) {
             qty = {{ $ticket->total_tickets - $ticket->sold_tickets }};
         }
         this.value = qty;
+
         payBtn.innerText = 'Pay ₹' + (qty * price).toFixed(2);
+
     });
 
+
+
     payBtn.addEventListener('click', function(e) {
-         //loader showing
+        //loader showing
         // Show a loading indicator
         payBtn.innerText = 'Processing...';
         payBtn.disabled = true; // Disable the button to prevent multiple clicks
 
-              e.preventDefault();
+        e.preventDefault();
 
-              if(quantityInput.value==0){
-                return
-              }
-              else if( {{ $ticket->total_tickets - $ticket->sold_tickets==0}}){
-                alert("Sold full ")
-                return
-              }
+        //time diffrecace
+
+        if (quantityInput.value == 0) {
+            return;
+        } else if (!{{ $ticket->total_tickets - $ticket->sold_tickets }}) {
+            console.log({{ $ticket->total_tickets - $ticket->sold_tickets }});
+            alert("Sold full ");
+            return
+        }
+
+
         var qty = parseInt(quantityInput.value) || 1;
 
         $.ajax({
@@ -231,15 +277,17 @@
                     "order_id": data.id, // This is the order_id created by you in your server
                     "handler": function(response) {
                         console.log('Payment successful:', response);
-                        if(response.razorpay_payment_id) {
+                        if (response.razorpay_payment_id) {
                             $.ajax({
                                 url: "{{ route('payment.store') }}",
                                 type: "POST",
                                 data: {
                                     'razorpay_order_id': response.razorpay_order_id,
-                                    'razorpay_payment_id': response.razorpay_payment_id,
-                                    'razorpay_signature': response.razorpay_signature,
-                                     'status': 'success',
+                                    'razorpay_payment_id': response
+                                        .razorpay_payment_id,
+                                    'razorpay_signature': response
+                                        .razorpay_signature,
+                                    'status': 'success',
                                     'amount': data.amount,
                                     'currency': "INR",
                                     'email': "{{ Auth::user()->email }}",
@@ -254,14 +302,18 @@
                                     // console.log('Payment stored successfully:', response);
                                     if (response.status === 'success') {
                                         // alert('Payment successful! Your ticket has been purchased.');
-                                        window.location.href = `{{ route('payment.success') }}`;
+                                        window.location.href =
+                                            `{{ route('payment.success') }}`;
                                     } else {
-                                        alert('Payment failed. Please try again.');
+                                        alert(
+                                            'Payment failed. Please try again.');
                                     }
                                 },
                                 error: (xhr, status, error) => {
-                                    console.error('Error storing payment:', error);
-                                    alert('Failed to store payment. Please try again.');
+                                    console.error('Error storing payment:',
+                                        error);
+                                    alert(
+                                        'Failed to store payment. Please try again.');
                                 }
                             })
 
@@ -298,5 +350,4 @@
 
 
     });
-
 </script>

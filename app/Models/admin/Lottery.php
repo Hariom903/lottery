@@ -4,11 +4,13 @@ namespace App\Models\admin;
 
 use App\Models\Ticket;
 use App\Models\admin\WinnerPrice;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str; // ✅ Add this import
 
 class Lottery extends Model
 {
+    use HasFactory;
     protected $fillable = [
         'title',
         'description',

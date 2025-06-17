@@ -42,37 +42,42 @@ class CreateWinner extends Command
                 if ($lottery->status === 'closed') {
                     continue; // Skip if already closed
                 }
-                $lottery_id = $lottery->id;
-                $number_of_winners = $lottery->number_of_winners;
-                for ($i = 0; $i < $number_of_winners; $i++) {
-
-                    $ticket = Ticket::where('lottery_id', $lottery_id)->inRandomOrder()->first();
-
-                    if ($ticket) {
-
-
-                        $ticket->is_winning = true;
-                        $ticket->save();
-                        $lottey_id = $ticket->lottery_id;
-                        $user_id = $ticket->user_id;
-
-                        $lotters = Lottery::find($lottery_id);
-                        $lottey_number = $lotters->lottey_number;
-                        $winner = WinnerPrice::where('winner_position', $i + 1)->first();
-                        $winner->user_id = $user_id;
-                        $winner->status = 'successful';
-                        $winner->save();
-                        $lotters->winner_id = $user_id;
+                 $lottery_id = $lottery->id;
+                 $number_of_winners = $lottery->number_of_winners;
+                   $lotters = Lottery::find($lottery_id);
+                        // $lotters->winner_id = $user_id;
                         $lotters->status = 'closed';
                         $lotters->save();
 
-                        Log::info("lottery status update   ");
+                for ($i = 0; $i < $number_of_winners; $i++) {
+                    //  echo($lottery_id);
+                    $ticket = Ticket::where('lottery_id', $lottery_id)->inRandomOrder()->first();
+
+                    if ($ticket) {
+                     $user_id = $ticket->user_id;
+                    //   echo($user_id);
+                        $ticket->is_winning = true;
+                        $ticket->save();
+
+                        $lottey_number = $ticket->ticket_number;
+
+
+                        $winner = WinnerPrice::where('winner_position', $i + 1)
+                         ->where('lottery_id',$lottery_id)
+                        ->first();
+
+                        // echo($user_id);
+
+
+                        $winner->user_id = $user_id;
+                        $winner->status = 'successful';
+                        $winner->save();
+
 
                         $user = User::find($user_id);
                         if ($user) {
-                            $user->notify(new Winner($lottey_number));
-                            Log::info("Winner has been notified for lottery with ID: {$lottery_id}");
-                            print_r("Winner has been notified");
+                              $user->notify(new Winner($lottey_number));
+                            // print_r("Winner has been notified");
                         }
                     }
                 }

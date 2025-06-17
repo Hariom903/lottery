@@ -92,14 +92,10 @@
 
 
 
-
-
-
-
     <div class="row">
         @foreach ($lotteries as $lottery)
             <div class="col-md-6 col-xl-3">
-                <a href="{{ route('lottery.show', $lottery->tid) }}">
+
                     <div class="card bg-grd-primary order-card">
                         <div class="card-body">
                             <h6 class="text-white">{{ $lottery->title }}</h6>
@@ -115,9 +111,10 @@
 
                                 <p class="m-b-0"> {{ $lottery->description }}<span class="float-end">Total Tickets:
                                         {{ $lottery->total_tickets }}</span></p>
-                               
+
+                        </div>
                     </div>
-                </a>
+             
             </div>
         @endforeach
     </div>
@@ -127,5 +124,3 @@
         </div>
     </div>
 @endsection
-
-

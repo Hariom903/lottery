@@ -50,15 +50,7 @@
                                 <div class="profile-notification-scroll position-relative"
                                     style="max-height: calc(100vh - 225px)">
                                     <ul class="list-group list-group-flush w-100">
-                                        <li class="list-group-item">
-                                            <a href="https://codedthemes.com/item/gradient-able-admin-template/"
-                                                target="_blank" class="dropdown-item">
-                                                <span class="d-flex align-items-center">
-                                                    <i class="ph ph-arrow-circle-down"></i>
-                                                    <span>Download</span>
-                                                </span>
-                                            </a>
-                                        </li>
+                                       
                                         <li class="list-group-item">
                                             <a href="#" class="dropdown-item">
                                                 <span class="d-flex align-items-center">
