@@ -115,8 +115,7 @@ class AdminController extends Controller
     return redirect()->back()->with('success', 'Winning prizes added successfully!');
     }
 }
-public function poster(){
-    return view('admin.addPoster');
-}
+
+
 }
 

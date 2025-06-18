@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\admin\PriceaddController;
 use App\Http\Controllers\AuthenticationController;
+use App\Http\Controllers\Admin\CarouselController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\handle;
 use App\Http\Controllers\HomeController;
@@ -13,6 +14,7 @@ use App\Http\Controllers\Policies\PoliciesController;
 use App\Http\Controllers\RazorpayController;
 use App\Http\Controllers\SingupController;
 use App\Http\Controllers\StripePaymentController;
+use App\Http\Controllers\SubscriberController;
 use App\Http\Controllers\TicketConttroler;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
@@ -46,7 +48,8 @@ Route::prefix('admin/')->group(function () {
         Route::post('lottery/price',[AdminController::class, 'pricestore'])->name('lottery.prizes.store');
         Route::get('addprice',[PriceaddController::class,'index'])->name('price.add');
         Route::post('addprice',[PriceaddController::class,'store'])->name('price.add.store');
-        Route::get('addposter',[AdminController::class,'poster'])->name('poster.add');
+        Route::get('addcarouselr',[CarouselController::class,'index'])->name('carouselr.add');
+        Route::post('addcarouselr',[CarouselController::class,"store"])->name('carouselr.store');
         Route::post('winnernumber',[PriceaddController::class,'winnernumber'])->name('winnernumber');
     });
 
@@ -96,7 +99,8 @@ Route::get('/terms-of-use',[PoliciesController::class,'termsOfuse'])->name('term
 Route::get('/privacy-notice',[PoliciesController::class,'privacyNotice'])->name('privacy.notice');
 // Cookie Policy
 Route::get('/cookie-policy',[PoliciesController::class,'cookiePolicy'])->name('cookie.policy');
-
+//subscribe
+Route::post('subscribe',[SubscriberController::class,'store'])->name('subscribe');
 
 
 

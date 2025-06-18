@@ -90,3 +90,13 @@ This project is for educational/demo purposes. For production use, review and up
 ---
 
 **Crafted with ❤️ by Team Hariom Dangi**
+
+
+ Fixed and improved the quantity selector (plus/minus buttons) for ticket purchase, with better validation and mobile-friendly design.
+- Implemented robust countdown timer logic for lottery draw times, ensuring timers work reliably with Owl Carousel and dynamic content.
+- Enhanced Razorpay payment integration: improved order creation, validation, and error handling in both frontend and backend.
+- Fixed cookie consent bar to be mobile-friendly and work without JavaScript (server-side cookie handling).
+- Resolved Laravel factory and seeder issues: ensured correct namespace, file location, and usage for `LotteryFactory` and dummy data generation.
+- Improved authentication logic: fixed cookie-based login to use Eloquent User model, preventing session errors.
+- Updated README.md with clear setup instructions, features, and usage notes.
+- General code cleanup and bug fixes for a smoother user experience.

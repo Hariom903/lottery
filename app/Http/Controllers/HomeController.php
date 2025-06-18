@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\admin\Carousel;
 use App\Models\admin\Lottery;
 use App\Models\User;
 use App\Models\Winerprice;
@@ -35,12 +36,15 @@ class HomeController extends Controller
     }
 }
 
+   $carousel = Carousel::all();
 
-
+//   echo "<pre>";
+//   print_r($carousel);
+//   die();
     // $winneruser = User::whereIn('id', $winnerLottery->pluck('winner_id'))->get(); // fetch all winner users in one query
 
 
-    return view('index', compact('lotteries','winneruser'));
+    return view('index', compact('lotteries','winneruser','carousel'));
 }
 }
 
