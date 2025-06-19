@@ -36,7 +36,9 @@ class HomeController extends Controller
     }
 }
 
-   $carousel = Carousel::all();
+   $carousel = Carousel::where('is_active',true)
+    ->orderBy('position', 'desc')
+    ->get();
 
 //   echo "<pre>";
 //   print_r($carousel);

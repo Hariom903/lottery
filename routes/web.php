@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\admin\PriceaddController;
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\Admin\CarouselController;
+use App\Http\Controllers\admin\CouponcodeController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\handle;
 use App\Http\Controllers\HomeController;
@@ -51,6 +52,9 @@ Route::prefix('admin/')->group(function () {
         Route::get('addcarouselr',[CarouselController::class,'index'])->name('carouselr.add');
         Route::post('addcarouselr',[CarouselController::class,"store"])->name('carouselr.store');
         Route::post('winnernumber',[PriceaddController::class,'winnernumber'])->name('winnernumber');
+        Route::get('carousel/{id}',[CarouselController::class,'Edit'])->name('carousel.edit');
+        Route::get('carousel/delete/{id}',[CarouselController::class,'delete'])->name('carousel.detete');
+
     });
 
     Route::post('logout', [AdminController::class, 'logout'])->name('admin.logout');
@@ -78,7 +82,7 @@ Route::middleware(['Authuser'])->group(function () {
     Route::post('payment/createorder', [RazorpayController::class, 'createOrder'])->name('payment.createOrder');
     Route::post('payment/store', [RazorpayController::class, 'store'])->name('payment.store');
     Route::get('/payment/success', [RazorpayController::class, 'success'])->name('payment.success');
-
+    Route::post('coupencode',[CouponcodeController::class,'getcode'])->name('coupencode');
 
     });
 //set cookies

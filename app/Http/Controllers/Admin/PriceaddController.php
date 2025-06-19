@@ -15,12 +15,17 @@ class PriceaddController extends Controller
     {
         $lotteries = Lottery::all();
         foreach($lotteries as $lottery){
+            if($lottery->status=='closed'){
+                continue ;
+            }
             $number_of_winners = $lottery->number_of_winners;
 
              $lottery_id = $lottery->id;
              $prizes = WinnerPrice::where('lottery_id', $lottery_id)->count();
              if($prizes== $number_of_winners && $number_of_winners>0){
-                 $lottery->status = 'open';
+
+                $lottery->status = 'open';
+
                  $lottery->save();
              }
             else{

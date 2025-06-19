@@ -43,8 +43,8 @@
                  </li>
                  <li class="pc-item">
                      <a href="{{ route('carouselr.add') }}" class="pc-link">
-                         <span class="pc-micon"><i class="ph ph-plus-square"></i></i></span>
-                         <span class="pc-mtext"> Add Poster  </span>
+                         <span class="pc-micon"><i class="ph ph-slideshow"></i></span>
+                         <span class="pc-mtext"> Carousel  </span>
                      </a>
                  </li>
                  <li class="pc-item">

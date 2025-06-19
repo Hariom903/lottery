@@ -27,10 +27,10 @@ class handle extends Controller
                 }
                  $lottery_id = $lottery->id;
                  $number_of_winners = $lottery->number_of_winners;
-                //    $lotters = Lottery::find($lottery_id);
-                //         // $lotters->winner_id = $user_id;
-                //         $lotters->status = 'closed';
-                //         $lotters->save();
+                   $lotters = Lottery::find($lottery_id);
+                        // $lotters->winner_id = $user_id;
+                        $lotters->status = 'closed';
+                        $lotters->save();
 
                 for ($i = 0; $i < $number_of_winners; $i++) {
                      echo($lottery_id);
@@ -46,7 +46,7 @@ class handle extends Controller
 
 
                         $winner = WinnerPrice::where('winner_position', $i + 1)
-                         ->where('lottery_id',$lottery_id)  
+                         ->where('lottery_id',$lottery_id)
                         ->first();
 
                         echo($user_id);

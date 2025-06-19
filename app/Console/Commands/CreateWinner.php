@@ -42,9 +42,9 @@ class CreateWinner extends Command
                 if ($lottery->status === 'closed') {
                     continue; // Skip if already closed
                 }
-                 $lottery_id = $lottery->id;
-                 $number_of_winners = $lottery->number_of_winners;
-                   $lotters = Lottery::find($lottery_id);
+                     $lottery_id = $lottery->id;
+                    $number_of_winners = $lottery->number_of_winners;
+                    $lotters = Lottery::find($lottery_id);
                         // $lotters->winner_id = $user_id;
                         $lotters->status = 'closed';
                         $lotters->save();

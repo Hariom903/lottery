@@ -102,12 +102,19 @@
                             <form id="checkout-form">
                                 @csrf
                                 <input type="hidden" name="lottery_id" value="{{ $ticket->id }}">
-
+                                <div class=" form-group mb-3">
+                                    <label for="couponcode" class="form-label"> Apply CouponCode : </label>
+                                    <input type="text" name="couponcode" id="couponcode">
+                                    <samp class="red-error" id="couponcodeerror"> </samp>
+                                    <button id="couponcodebtn" type="button" class="btn btn-primary rounded-4"> Apply
+                                    </button>
+                                </div>
                                 <div class="form-group mb-3">
                                     <label for="quantity" class="form-label">Number of Tickets to Buy:</label>
                                     {{-- <input type="number" id="quantity" name="quantity" min="1"
                                         max="{{ $ticket->total_tickets - $ticket->sold_tickets }}" class="form-control"
                                        value="1" required> --}}
+
                                     <div class="mb-3 form-group d-flex align-items-center justify-content-center gap-2">
                                         <button type="button" class="btn btn-primary btn-sm rounded-circle"
                                             id="decrement">
@@ -164,7 +171,7 @@
                                         </div>
                                         <span class="position-absolute top-0 end-0 m-3">
                                             <i class="ph ph-trophy text-worning"
-                                                style="font-size: 4rem; opacity: 0.5;"></i>
+                                                style="font-size: 3rem; opacity: 0.5;"></i>
                                         </span>
                                     </div>
                                 </div>
@@ -192,22 +199,69 @@
 
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <script>
-    var price = {{ $ticket->ticket_price }};
     var quantityInput = document.getElementById('quantity');
     var payBtn = document.getElementById('paybtn');
+    var price = {{ $ticket->ticket_price }};
+    var discount = 0;
+    $("#couponcodebtn").click(() => {
+        var code = $("#couponcode").val();
+        $.ajax({
+            url: "{{ route('coupencode') }}",
+            type: "POST",
+            data: {
+                "couponcode": code,
+                '_token': "{{ csrf_token() }}",
+            },
+            success: (res) => {
+                if (res.error) {
+                    $("#couponcodeerror").text(res.error);
+
+                    this.discount = 0;
+                    var qty = parseInt($("#quantity").val()) || 1;
+                    var total = (qty * price) - discount;
+                    payBtn.innerText = 'Pay ₹' + total.toFixed(2);
+
+                } else {
+                    var msg = $("#couponcodeerror");
+                    msg.text('Coupon Code apply succesfull ');
+                    msg.css("color", "blue");
+                    $("#couponcode").hide();
+                     $("#couponcodebtn").hide();
+
+                    this.discount = Number(res.discount);
+
+                    var qty = parseInt($("#quantity").val()) || 1;
+                    var total = (qty * price) - discount;
+                    if (total < 0) total = 0;
+                    payBtn.innerText = 'Pay ₹' + total.toFixed(2);
+
+                }
+
+            },
+            error: (xhr, status, error) => {
+                console.log("error ");
+            }
+
+        });
+
+
+
+    });
+
+
 
     document.getElementById('increment').onclick = function() {
         var qty = document.getElementById('quantity');
         payBtn.disabled = false;
         var count = qty.value = parseInt(qty.value) + 1;
-        payBtn.innerText = 'Pay ₹' + (count * price).toFixed(2);
+        payBtn.innerText = 'Pay ₹' + ((count * price) - discount).toFixed(2);
     };
     document.getElementById('decrement').onclick = function() {
         var qty = document.getElementById('quantity');
         payBtn.disabled = false;
         if (parseInt(qty.value) > 1)
             var count = qty.value = parseInt(qty.value) - 1;
-        payBtn.innerText = 'Pay ₹' + (count * price).toFixed(2);
+        payBtn.innerText = 'Pay ₹' + ((count * price) - discount).toFixed(2);
     };
     var end = new Date("{{ \Carbon\Carbon::parse($ticket->draw_datetime)->format('Y-m-d H:i:s') }}").getTime();
     var now = new Date().getTime();
@@ -229,7 +283,7 @@
         }
         this.value = qty;
 
-        payBtn.innerText = 'Pay ₹' + (qty * price).toFixed(2);
+        payBtn.innerText = 'Pay ₹' + ((qty * price) - discount).toFixed(2);
 
     });
 
@@ -262,7 +316,7 @@
             data: {
                 'lottery_id': '{{ $ticket->id }}',
                 'quantity': qty,
-                'price': price,
+                'price': price - discount,
                 '_token': '{{ csrf_token() }}'
             },
             success: (data) => {
@@ -306,14 +360,16 @@
                                             `{{ route('payment.success') }}`;
                                     } else {
                                         alert(
-                                            'Payment failed. Please try again.');
+                                            'Payment failed. Please try again.'
+                                        );
                                     }
                                 },
                                 error: (xhr, status, error) => {
                                     console.error('Error storing payment:',
                                         error);
                                     alert(
-                                        'Failed to store payment. Please try again.');
+                                        'Failed to store payment. Please try again.'
+                                    );
                                 }
                             })
 
