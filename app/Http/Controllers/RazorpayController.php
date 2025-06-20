@@ -24,7 +24,8 @@ class RazorpayController extends Controller
       // Calculate total price based on quantity
      $quantity = $data['quantity'] ?? 1; // Default to 1 if not provided
       $price = $data['price'] ?? 0; // Default to 0 if not provided
-      $data['price'] = $price * $quantity; // Calculate total price based on quantity
+     $discount = $data['discount'];
+      $data['price'] = ($price * $quantity)-$discount; // Calculate total price based on quantity
 
      $amount = $data['price'] * 100; // Convert to paise
 

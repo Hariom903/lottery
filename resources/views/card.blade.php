@@ -239,7 +239,7 @@
 
             },
             error: (xhr, status, error) => {
-                console.log("error ");
+                  alert('error');
             }
 
         });
@@ -261,7 +261,7 @@
         payBtn.disabled = false;
         if (parseInt(qty.value) > 1)
             var count = qty.value = parseInt(qty.value) - 1;
-        payBtn.innerText = 'Pay ₹' + ((count * price) - discount).toFixed(2);
+        payBtn.innerText = 'Pay ₹' + ((count * price)- discount ).toFixed(2);
     };
     var end = new Date("{{ \Carbon\Carbon::parse($ticket->draw_datetime)->format('Y-m-d H:i:s') }}").getTime();
     var now = new Date().getTime();
@@ -277,6 +277,7 @@
     quantityInput.addEventListener('input', function() {
         payBtn.disabled = false;
         var qty = parseInt(this.value) || 1;
+
         if (qty < 1) qty = 1;
         if (qty > {{ $ticket->total_tickets - $ticket->sold_tickets }}) {
             qty = {{ $ticket->total_tickets - $ticket->sold_tickets }};
@@ -316,7 +317,8 @@
             data: {
                 'lottery_id': '{{ $ticket->id }}',
                 'quantity': qty,
-                'price': price - discount,
+                'price': price,
+                'discount':discount,
                 '_token': '{{ csrf_token() }}'
             },
             success: (data) => {
