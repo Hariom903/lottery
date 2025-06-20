@@ -37,6 +37,8 @@
     <link rel="stylesheet" href="{{ asset('css/style-preset.css') }}" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
 </head>
 
 <body data-pc-header="header-1" data-pc-preset="preset-1" data-pc-sidebar-theme="light" data-pc-sidebar-caption="true"

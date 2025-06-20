@@ -69,12 +69,14 @@
         <div class="footer-wrapper container-fluid">
             <div class="row">
                 <div class="col-sm-6 my-1">
-                    <p class="m-0">Gradient Able &#9829; crafted by Team <a href="https://codedthemes.com/"
-                            target="_blank">Codedthemes</a></p>
+                  <p class="m-0 small">Gradient Able &#9829; crafted by Team
+                    <a href="http://hariom.ct.ws" target="_blank" class=" text-decoration-underline">Hariom
+                        Dangi</a>
+                </p>
                 </div>
                 <div class="col-sm-6 ms-auto my-1">
                     <ul class="list-inline footer-link mb-0 justify-content-sm-end d-flex">
-                        <li class="list-inline-item"><a href="/dashbroad">Home</a></li>
+                        <li class="list-inline-item"><a href="{{ route('dashboard') }}">Home</a></li>
                     </ul>
                 </div>
             </div>

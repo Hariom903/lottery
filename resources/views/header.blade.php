@@ -41,7 +41,7 @@
                   <li class="pc-h-item">
                       <a href="{{ url('/' . '#contact-us') }}" class="pc-head-link">Contect us</a>
                   </li>
-                  @if (!Auth::check())
+                  @if (!Auth::check() || Auth::user()->role !=="user" )
                       <li class="pc-h-item">
                           <i class="ph ph-star me-1"> </i>
                           <a href="{{ route('signup.form') }}" class="pc-head-link"> Become a Member </a>
@@ -60,8 +60,8 @@
                                   <a class="pc-head-link dropdown-toggle arrow-none me-0" data-bs-toggle="dropdown"
                                       href="#" role="button" aria-haspopup="false" data-bs-auto-close="outside"
                                       aria-expanded="false">
-                                      <img src="{{ asset('images/user/avatar-2.jpg') }}" alt="user-image"
-                                          class="user-avtar" />
+                                      <img src="{{ Auth::user()->image ? asset('images/user/' . Auth::user()->image) : asset('images/user/avatar-1.jpg') }}"
+                                          alt="user-image" class="user-avtar" />
                                   </a>
                                   <div class="dropdown-menu dropdown-user-profile dropdown-menu-end pc-h-dropdown">
                                       <div class="dropdown-body">
@@ -70,14 +70,16 @@
                                               <ul class="list-group list-group-flush w-100">
 
                                                   <li class="list-group-item">
-                                                      <a href="#" class="dropdown-item">
+                                                      <button type="button" class="dropdown-item"
+                                                          data-bs-toggle="modal" data-bs-target="#updateprofile">
                                                           <span class="d-flex align-items-center">
                                                               <i class="ph ph-user-circle"></i>
                                                               <span>Edit profile <span
                                                                       class="me-1">{{ Auth::user()->name }}</span>
                                                               </span>
                                                           </span>
-                                                      </a>
+                                                      </button>
+
                                                       <button type="button" class="dropdown-item"
                                                           data-bs-toggle="modal" data-bs-target="#changepassword">
                                                           <span class="d-flex align-items-center">
@@ -116,4 +118,7 @@
 
       </div>
   </header>
+  @if(Auth::user())
+  @include('updateprofile')
   @include('changepassword')
+@endif

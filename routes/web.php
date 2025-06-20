@@ -54,7 +54,11 @@ Route::prefix('admin/')->group(function () {
         Route::post('winnernumber',[PriceaddController::class,'winnernumber'])->name('winnernumber');
         Route::get('carousel/{id}',[CarouselController::class,'Edit'])->name('carousel.edit');
         Route::get('carousel/delete/{id}',[CarouselController::class,'delete'])->name('carousel.detete');
-
+        Route::get('addcouponcode',[CouponcodeController::class,'index'])->name('addcouponcode');
+        Route::post('addcouponcode/store',[CouponcodeController::class,'store'])->name('couponcode.store');
+        Route::get('addcouponcode/delete/{id}',[CouponcodeController::class,'delete'])->name('couponcode.delete');
+         Route::post('/change-password',[PasswordController::class,'changePassword'])->name('admin.change.password');
+          Route::post('/update/profile',[UserController::class,"updateprofile"])->name('admin.update.profile');
     });
 
     Route::post('logout', [AdminController::class, 'logout'])->name('admin.logout');
@@ -71,6 +75,7 @@ Route::middleware(['Authuser'])->group(function () {
     Route::get('/cards/{tid}',[TicketConttroler::class,'index']);
     Route::get('/mytickets',[UserController::class,'myTickets'])->name('mytickets');
     Route::post('/change-password',[PasswordController::class,'changePassword'])->name('change.password');
+    Route::post('/update/profile',[UserController::class,"updateprofile"])->name('update.profile');
 
 
 

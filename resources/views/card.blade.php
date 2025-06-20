@@ -33,6 +33,8 @@
     <link rel="stylesheet" href="{{ asset('css/style.css') }}" id="main-style-link" />
     <link rel="stylesheet" href="{{ asset('css/style-preset.css') }}" />
     {{-- jQuery library --> --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
@@ -226,7 +228,7 @@
                     msg.text('Coupon Code apply succesfull ');
                     msg.css("color", "blue");
                     $("#couponcode").hide();
-                     $("#couponcodebtn").hide();
+                    $("#couponcodebtn").hide();
 
                     this.discount = Number(res.discount);
 
@@ -239,7 +241,7 @@
 
             },
             error: (xhr, status, error) => {
-                  alert('error');
+                alert('error');
             }
 
         });
@@ -261,7 +263,7 @@
         payBtn.disabled = false;
         if (parseInt(qty.value) > 1)
             var count = qty.value = parseInt(qty.value) - 1;
-        payBtn.innerText = 'Pay ₹' + ((count * price)- discount ).toFixed(2);
+        payBtn.innerText = 'Pay ₹' + ((count * price) - discount).toFixed(2);
     };
     var end = new Date("{{ \Carbon\Carbon::parse($ticket->draw_datetime)->format('Y-m-d H:i:s') }}").getTime();
     var now = new Date().getTime();
@@ -318,7 +320,7 @@
                 'lottery_id': '{{ $ticket->id }}',
                 'quantity': qty,
                 'price': price,
-                'discount':discount,
+                'discount': discount,
                 '_token': '{{ csrf_token() }}'
             },
             success: (data) => {
